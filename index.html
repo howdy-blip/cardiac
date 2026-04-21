@@ -461,55 +461,47 @@
     box-shadow: 0 4px 20px rgba(212,43,43,0.4); transition: opacity .2s;
   }
   #live-edit-btn:hover { opacity: 0.85; }
-  #live-edit-overlay {
-    display: none; position: fixed; inset: 0; z-index: 10000;
-    background: rgba(13,13,13,0.97); flex-direction: column;
-    font-family: 'DM Mono', monospace;
-  }
-  #live-edit-overlay.active { display: flex; }
   #live-edit-topbar {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 20px; background: #1A1A1A;
-    border-bottom: 2px solid #D42B2B;
+    display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+    background: #1A1A1A; border-bottom: 2px solid #D42B2B;
+    align-items: center; gap: 12px; padding: 10px 20px;
+    font-family: 'DM Mono', monospace; box-shadow: 0 2px 12px rgba(0,0,0,0.5);
   }
-  #live-edit-topbar span {
+  #live-edit-topbar.active { display: flex; }
+  #live-edit-topbar-label {
     color: #D42B2B; font-size: 12px; letter-spacing: 0.15em;
     text-transform: uppercase; flex: 1;
   }
+  #live-edit-status { font-size: 11px; color: #888; }
+  #live-edit-pat-label {
+    color: #666; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.1em; white-space: nowrap;
+  }
+  #live-edit-pat {
+    background: #0D0D0D; color: #fff; border: 1px solid #333;
+    border-radius: 4px; padding: 5px 10px; font-family: 'DM Mono', monospace;
+    font-size: 12px; outline: none; width: 240px;
+  }
+  #live-edit-pat:focus { border-color: #D42B2B; }
   #live-edit-save-btn {
     background: #D42B2B; color: #fff; border: none; border-radius: 4px;
-    padding: 8px 20px; font-family: 'DM Mono', monospace; font-size: 11px;
+    padding: 7px 18px; font-family: 'DM Mono', monospace; font-size: 11px;
     letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
   }
   #live-edit-save-btn:hover { background: #A81F1F; }
   #live-edit-close-btn {
     background: transparent; color: #888; border: 1px solid #333;
-    border-radius: 4px; padding: 8px 14px; font-family: 'DM Mono', monospace;
+    border-radius: 4px; padding: 7px 13px; font-family: 'DM Mono', monospace;
     font-size: 11px; cursor: pointer;
   }
   #live-edit-close-btn:hover { color: #fff; border-color: #666; }
-  #live-edit-status {
-    font-size: 11px; color: #888; margin-left: 8px;
+  body.live-editing { padding-top: 54px !important; }
+  body.live-editing [contenteditable]:hover {
+    outline: 1px dashed rgba(212,43,43,0.5); cursor: text;
   }
-  #live-edit-textarea {
-    flex: 1; background: #0D0D0D; color: #C8C8C8; border: none;
-    padding: 20px; font-family: 'DM Mono', monospace; font-size: 13px;
-    line-height: 1.6; resize: none; outline: none; tab-size: 2;
+  body.live-editing [contenteditable]:focus {
+    outline: 2px solid rgba(212,43,43,0.8); outline-offset: 2px;
   }
-  #live-edit-pat-row {
-    padding: 10px 20px; background: #111; border-bottom: 1px solid #222;
-    display: flex; align-items: center; gap: 10px;
-  }
-  #live-edit-pat-row label {
-    color: #888; font-size: 11px; text-transform: uppercase;
-    letter-spacing: 0.1em; white-space: nowrap;
-  }
-  #live-edit-pat {
-    flex: 1; background: #1A1A1A; color: #fff; border: 1px solid #333;
-    border-radius: 4px; padding: 6px 10px; font-family: 'DM Mono', monospace;
-    font-size: 12px; outline: none;
-  }
-  #live-edit-pat:focus { border-color: #D42B2B; }
   #live-edit-pwd-modal {
     display: none; position: fixed; inset: 0; z-index: 10001;
     background: rgba(0,0,0,0.85); align-items: center; justify-content: center;
@@ -548,28 +540,22 @@
   </div>
 </div>
 
-<div id="live-edit-overlay">
-  <div id="live-edit-topbar">
-    <span>&#9998; Live Editor &mdash; cardiac.broadcollective.com.au</span>
-    <span id="live-edit-status"></span>
-    <button id="live-edit-close-btn" onclick="liveEditClose()">Close</button>
-    <button id="live-edit-save-btn" onclick="liveEditSave()">&#8593; Save &amp; Deploy</button>
-  </div>
-  <div id="live-edit-pat-row">
-    <label>GitHub PAT:</label>
-    <input id="live-edit-pat" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
-  </div>
-  <textarea id="live-edit-textarea" spellcheck="false"></textarea>
+<div id="live-edit-topbar">
+  <span id="live-edit-topbar-label">&#9998; Edit Mode &mdash; click any text to edit</span>
+  <span id="live-edit-status"></span>
+  <label id="live-edit-pat-label">PAT:</label>
+  <input id="live-edit-pat" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+  <button id="live-edit-close-btn" onclick="liveEditClose()">Cancel</button>
+  <button id="live-edit-save-btn" onclick="liveEditSave()">&#8593; Save &amp; Deploy</button>
 </div>
 
 <script>
 (function() {
-  // ---- CONFIG ----
   var EDIT_PASSWORD = 'broadcast2026';
   var REPO = 'howdy-blip/cardiac';
   var FILE_PATH = 'index.html';
   var BRANCH = 'main';
-  // ----------------
+  var EDITABLE = 'h1, h2, h3, h4, h5, h6, p, li, td, th';
 
   window.liveEditOpen = function() {
     document.getElementById('live-edit-pwd-modal').classList.add('active');
@@ -582,7 +568,7 @@
       document.getElementById('live-edit-pwd-modal').classList.remove('active');
       document.getElementById('live-edit-pwd-input').value = '';
       document.getElementById('live-edit-pwd-err').style.display = 'none';
-      liveEditShow();
+      liveEditActivate();
     } else {
       document.getElementById('live-edit-pwd-err').style.display = 'block';
       document.getElementById('live-edit-pwd-input').value = '';
@@ -595,34 +581,76 @@
     }
     if (e.key === 'Escape') {
       document.getElementById('live-edit-pwd-modal').classList.remove('active');
-      liveEditClose();
     }
   });
 
-  window.liveEditShow = function() {
-    setStatus('Loading current file...');
-    document.getElementById('live-edit-overlay').classList.add('active');
+  window.liveEditActivate = function() {
+    setStatus('Loading...');
     fetch('https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH + '?ref=' + BRANCH)
       .then(function(r) { return r.json(); })
       .then(function(data) {
         window._leFileSha = data.sha;
-        var content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
-        document.getElementById('live-edit-textarea').value = content;
-        setStatus('Ready — ' + content.length + ' bytes');
+        setStatus('Click any text to edit');
       })
-      .catch(function(e) { setStatus('Error loading file: ' + e.message); });
+      .catch(function(e) { setStatus('Warn: ' + e.message); });
+
+    document.body.classList.add('live-editing');
+    document.getElementById('live-edit-topbar').classList.add('active');
+    document.getElementById('live-edit-btn').style.display = 'none';
+
+    document.querySelectorAll(EDITABLE).forEach(function(el) {
+      if (!el.closest('#live-edit-topbar') && !el.closest('#live-edit-pwd-modal')) {
+        el.setAttribute('contenteditable', 'true');
+        el.setAttribute('data-le', '1');
+      }
+    });
   };
 
   window.liveEditClose = function() {
-    document.getElementById('live-edit-overlay').classList.remove('active');
+    document.body.classList.remove('live-editing');
+    document.getElementById('live-edit-topbar').classList.remove('active');
+    document.getElementById('live-edit-btn').style.display = '';
+    document.querySelectorAll('[data-le]').forEach(function(el) {
+      el.removeAttribute('contenteditable');
+      el.removeAttribute('data-le');
+    });
+    setStatus('');
   };
 
   window.liveEditSave = function() {
     var pat = document.getElementById('live-edit-pat').value.trim();
-    if (!pat) { setStatus('Please enter your GitHub PAT first.'); return; }
-    var content = document.getElementById('live-edit-textarea').value;
-    var encoded = btoa(unescape(encodeURIComponent(content)));
+    if (!pat) { setStatus('Enter your GitHub PAT first.'); return; }
+    if (!window._leFileSha) { setStatus('SHA not loaded — wait and retry.'); return; }
+
+    setStatus('Preparing...');
+
+    var topbar = document.getElementById('live-edit-topbar');
+    var editBtn = document.getElementById('live-edit-btn');
+
+    // Strip editing artifacts to capture clean HTML
+    document.body.classList.remove('live-editing');
+    topbar.classList.remove('active');
+    editBtn.style.display = '';
+    document.querySelectorAll('[data-le]').forEach(function(el) {
+      el.removeAttribute('contenteditable');
+      el.removeAttribute('data-le');
+    });
+
+    var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+    // Restore edit mode
+    document.body.classList.add('live-editing');
+    topbar.classList.add('active');
+    editBtn.style.display = 'none';
+    document.querySelectorAll(EDITABLE).forEach(function(el) {
+      if (!el.closest('#live-edit-topbar') && !el.closest('#live-edit-pwd-modal')) {
+        el.setAttribute('contenteditable', 'true');
+        el.setAttribute('data-le', '1');
+      }
+    });
+
     setStatus('Saving...');
+    var encoded = btoa(unescape(encodeURIComponent(html)));
     fetch('https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH, {
       method: 'PUT',
       headers: {
@@ -641,7 +669,7 @@
     .then(function(data) {
       if (data.content && data.content.sha) {
         window._leFileSha = data.content.sha;
-        setStatus('Saved! Deploying to GitHub Pages... (~ 30s)');
+        setStatus('Saved! Deploying to GitHub Pages (~30s)');
       } else {
         setStatus('Error: ' + (data.message || JSON.stringify(data)));
       }

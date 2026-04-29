@@ -1,661 +1,226 @@
-<!DOCTYPE html>
-<html lang="en-AU">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cardiac Defibrillators â Marketing Retainer Strategy 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
 <style>
-  :root {
-    --red: #D42B2B;
-    --red-dark: #A81F1F;
-    --red-light: #FF3B3B;
-    --black: #0D0D0D;
-    --black-mid: #1A1A1A;
-    --black-soft: #2A2A2A;
-    --white: #FFFFFF;
-    --grey: #888888;
-    --grey-light: #C8C8C8;
-    --border: rgba(255,255,255,0.08);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-
-  header { background: var(--black); border-bottom: 3px solid var(--red); padding: 48px 64px 40px; position: relative; overflow: hidden; }
-  header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(212,43,43,0.15) 0%, transparent 70%); pointer-events: none; }
-  .header-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
-  header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 6vw, 80px); letter-spacing: 0.02em; line-height: 1; color: var(--white); margin-bottom: 8px; }
-  header h1 span { color: var(--red); }
-  .header-sub { font-size: 14px; color: var(--grey-light); font-weight: 300; margin-top: 12px; }
-  .header-meta { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
-  .meta-item { display: flex; flex-direction: column; gap: 4px; }
-  .meta-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); }
-  .meta-value { font-size: 15px; font-weight: 600; color: var(--white); }
-
-  section { padding: 56px 64px; border-bottom: 1px solid var(--border); }
-  .section-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-  .section-tag::after { content: ''; flex: 1; height: 1px; background: var(--red); opacity: 0.3; }
-  h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(30px, 4vw, 44px); letter-spacing: 0.03em; color: var(--white); margin-bottom: 24px; line-height: 1.1; }
-  h3 { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-light); margin-bottom: 12px; }
-  p { color: var(--grey-light); font-weight: 300; max-width: 680px; }
-
-  .retainer-hero { background: var(--red); padding: 56px 64px; position: relative; overflow: hidden; }
-  .retainer-hero::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 40%; background: linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.25) 100%); }
-  .retainer-hero::after { content: 'AED'; position: absolute; right: 48px; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 140px; color: rgba(255,255,255,0.07); letter-spacing: 0.05em; pointer-events: none; }
-  .retainer-hero .section-tag { color: rgba(255,255,255,0.7); }
-  .retainer-hero .section-tag::after { background: rgba(255,255,255,0.3); opacity: 1; }
-  .retainer-hero h2 { color: var(--white); margin-bottom: 8px; }
-  .price-block { display: flex; align-items: baseline; gap: 6px; margin: 20px 0 8px; }
-  .price-currency { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: rgba(255,255,255,0.7); }
-  .price-amount { font-family: 'Bebas Neue', sans-serif; font-size: 96px; line-height: 1; color: var(--white); letter-spacing: -0.01em; }
-  .price-period { font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.6); letter-spacing: 0.05em; }
-  .price-note { font-size: 13px; color: rgba(255,255,255,0.65); font-weight: 300; max-width: 480px; line-height: 1.6; }
-
-  .inclusions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); margin-top: 32px; }
-  .inclusion-card { background: var(--black-mid); padding: 32px 28px; transition: background 0.2s; }
-  .inclusion-card:hover { background: var(--black-soft); }
-  .inclusion-icon { width: 40px; height: 40px; background: var(--red); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 18px; }
-  .inclusion-card h3 { color: var(--white); font-size: 13px; letter-spacing: 0.08em; margin-bottom: 10px; }
-  .inclusion-card p { font-size: 13px; color: var(--grey); line-height: 1.6; max-width: none; }
-  .inclusion-card ul { margin-top: 10px; padding-left: 0; list-style: none; }
-  .inclusion-card ul li { font-size: 13px; color: var(--grey); padding: 4px 0 4px 16px; position: relative; }
-  .inclusion-card ul li::before { content: 'â'; position: absolute; left: 0; color: var(--red); font-size: 11px; }
-  .not-included { border-top: 1px solid var(--border); padding-top: 12px; margin-top: 12px; }
-  .not-included p { font-size: 12px; color: var(--grey); font-style: italic; }
-
-  .timeline { margin-top: 40px; }
-  .timeline-grid { display: grid; grid-template-columns: 100px 1fr; }
-  .month-label { padding: 0 24px 0 0; display: flex; flex-direction: column; align-items: flex-end; padding-top: 20px; position: relative; }
-  .month-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--white); letter-spacing: 0.05em; line-height: 1; }
-  .month-year { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); letter-spacing: 0.1em; }
-  .month-connector { position: absolute; top: 28px; right: -1px; width: 12px; height: 12px; background: var(--red); border-radius: 50%; z-index: 2; }
-  .month-content { border-left: 2px solid var(--border); padding: 20px 0 32px 28px; position: relative; }
-  .month-content::before { content: ''; position: absolute; left: -1px; top: 28px; width: 20px; height: 2px; background: var(--red); }
-  .month-items { display: flex; flex-direction: column; gap: 8px; }
-  .month-item { display: flex; align-items: flex-start; gap: 10px; background: var(--black-mid); padding: 12px 16px; border-radius: 4px; border-left: 3px solid transparent; font-size: 13px; color: var(--grey-light); }
-  .month-item.regular { border-left-color: var(--black-soft); }
-  .month-item.highlight { border-left-color: var(--red); color: var(--white); }
-  .month-item.eofy { border-left-color: #FFD700; background: rgba(255,215,0,0.05); color: var(--white); }
-  .item-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
-  .tag-newsletter { background: rgba(212,43,43,0.2); color: var(--red-light); }
-  .tag-web { background: rgba(255,255,255,0.06); color: var(--grey-light); }
-  .tag-ads { background: rgba(255,100,0,0.15); color: #FF9060; }
-  .tag-eofy { background: rgba(255,215,0,0.15); color: #FFD700; }
-  .tag-review { background: rgba(100,200,100,0.12); color: #80E080; }
-
-  .scope-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 13px; }
-  .scope-table th { text-align: left; padding: 10px 16px; background: var(--black-soft); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); border-bottom: 1px solid var(--border); }
-  .scope-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--grey-light); vertical-align: top; }
-  .scope-table tr:last-child td { border-bottom: none; }
-  .scope-table tr:hover td { background: var(--black-mid); }
-  .included-yes { color: #80E080; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; }
-  .included-no { color: var(--grey); font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em; }
-  .included-extra { color: #FFD700; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em; }
-
-  .eofy-callout { background: var(--black-mid); border: 1px solid rgba(255,215,0,0.25); border-radius: 4px; padding: 32px; margin-top: 32px; position: relative; overflow: hidden; }
-  .eofy-callout::before { content: 'EOFY'; position: absolute; right: 24px; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 80px; color: rgba(255,215,0,0.04); letter-spacing: 0.1em; pointer-events: none; }
-  .eofy-callout h3 { color: #FFD700; font-size: 12px; letter-spacing: 0.15em; margin-bottom: 10px; }
-  .eofy-callout p { font-size: 14px; color: var(--grey-light); max-width: 560px; }
-  .eofy-callout strong { color: var(--white); font-weight: 600; }
-
-  .oos-section { background: var(--black-mid); padding: 56px 64px; border-bottom: 1px solid var(--border); }
-  .oos-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 28px; }
-  .oos-item { background: var(--black); border: 1px solid var(--border); border-radius: 4px; padding: 20px 20px 20px 32px; font-size: 13px; color: var(--grey); position: relative; }
-  .oos-item::before { content: 'Ã'; position: absolute; left: 14px; top: 20px; color: var(--grey); font-size: 14px; }
-  .oos-item strong { display: block; color: var(--grey-light); font-weight: 500; margin-bottom: 4px; }
-
-  .strategy-points { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
-  .strategy-point { display: grid; grid-template-columns: 32px 1fr; gap: 16px; align-items: start; }
-  .point-number { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); line-height: 1; }
-  .point-text h4 { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
-  .point-text p { font-size: 13px; color: var(--grey); max-width: none; margin: 0; }
-
-  .terms-note { background: var(--black-soft); border-left: 3px solid var(--red); padding: 20px 24px; margin-top: 32px; border-radius: 0 4px 4px 0; }
-  .terms-note p { font-size: 13px; color: var(--grey-light); margin: 0; max-width: none; }
-  .terms-note p + p { margin-top: 8px; }
-
-  footer { padding: 40px 64px; background: var(--black); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  footer p { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); letter-spacing: 0.05em; max-width: none; }
-  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--red); letter-spacing: 0.1em; }
-
-  @media (max-width: 700px) {
-    header, section, .oos-section, footer { padding: 36px 24px; }
-    .timeline-grid { grid-template-columns: 70px 1fr; }
-    .retainer-hero::after { display: none; }
-    .price-amount { font-size: 64px; }
-    header h1 { font-size: 40px; }
-  }
-</style>
-</head>
-<body>
-
-<header>
-  <div class="header-label">Marketing Retainer Proposal â 2026</div>
-  <h1>Cardiac <span>Defibrillators</span><br>Australia</h1>
-  <p class="header-sub">cardiacdefibrillators.com.au â Revised Retainer Structure</p>
-  <div class="header-meta">
-    <div class="meta-item"><span class="meta-label">Effective</span><span class="meta-value">1 May 2026</span></div>
-    <div class="meta-item"><span class="meta-label">Period</span><span class="meta-value">May â December 2026</span></div>
-    <div class="meta-item"><span class="meta-label">Prepared</span><span class="meta-value">April 2026</span></div>
-  </div>
-</header>
-
-<div class="retainer-hero">
-  <div class="section-tag">Monthly Retainer</div>
-  <h2>Revised Scope &amp; Investment</h2>
-  <div class="price-block">
-    <span class="price-currency">$</span>
-    <span class="price-amount">550</span>
-    <span class="price-period">/ month + GST</span>
-  </div>
-  <p class="price-note">This revised structure reflects a streamlined scope from previous arrangements, with clearly defined deliverables each month. Work outside this scope is available at an agreed hourly rate.</p>
-</div>
-
-<section>
-  <div class="section-tag">Scope of Work</div>
-  <h2>What's Included Each Month</h2>
-  <p>The following deliverables are covered under the monthly retainer. All work is performed to a professional standard with brand consistency maintained across every asset.</p>
-  <div class="inclusions-grid">
-
-    <div class="inclusion-card">
-      <div class="inclusion-icon">â</div>
-      <h3>Monthly Email Newsletter</h3>
-      <p>One fully produced newsletter each month, from sourcing through to send.</p>
-      <ul>
-        <li>Sourcing and research of relevant cardiac arrest news and articles</li>
-        <li>Copywriting and editing</li>
-        <li>Graphic design â layout and imagery</li>
-        <li>Article published to website each month</li>
-        <li>Save stories or case studies featured where available</li>
-        <li>AED product spotlights and awareness content as relevant</li>
-        <li>Email send to subscriber database</li>
-      </ul>
-    </div>
-
-    <div class="inclusion-card">
-      <div class="inclusion-icon">â</div>
-      <h3>Website Maintenance &amp; Bug Fixes</h3>
-      <p>Ongoing technical upkeep to keep the website and connected tools running correctly.</p>
-      <ul>
-        <li>WordPress plugin and platform updates</li>
-        <li>Integrately integration troubleshooting and bug resolution</li>
-        <li>Minor content edits and copy updates</li>
-        <li>Contact form and functionality checks</li>
-      </ul>
-      <div class="not-included">
-        <p>Note: New page builds, major redesigns, and new integrations are outside this scope and quoted separately.</p>
-      </div>
-    </div>
-
-    <div class="inclusion-card">
-      <div class="inclusion-icon">â</div>
-      <h3>Facebook Ad Creation</h3>
-      <p>One ad campaign created every two months, aligned to a seasonal or product focus.</p>
-      <ul>
-        <li>Ad creative graphic design</li>
-        <li>Primary copy and headline writing</li>
-        <li>Campaign setup and initial targeting</li>
-        <li>One post-learning-phase check-in per campaign</li>
-        <li>Audience recommendations based on objectives</li>
-      </ul>
-      <div class="not-included">
-        <p>Note: Consistent ongoing monitoring is not included. The post-learning-phase check-in is a single review after the algorithm settles â not ongoing management.</p>
-      </div>
-    </div>
-
-    <div class="inclusion-card">
-      <div class="inclusion-icon">â»</div>
-      <h3>Strategy &amp; Account Oversight</h3>
-      <p>Retained strategic guidance and brand continuity across the engagement.</p>
-      <ul>
-        <li>Brand consistency maintained across all outputs</li>
-        <li>Basic edits to existing flyers and design assets</li>
-        <li>Recommendations on opportunities as they arise</li>
-        <li>Quarterly debrief on direction and priorities</li>
-      </ul>
-      <div class="not-included">
-        <p>Note: Major design file creation â new brand assets, full collateral suites, print production â is outside scope and quoted as a separate project.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<section style="background: var(--black-mid);">
-  <div class="section-tag">EOFY Strategy</div>
-  <h2>End of Financial Year Campaign â June 2026</h2>
-  <p>The EOFY period (May through June) is one of the strongest buying windows for AED and defibrillator equipment in Australia. Businesses and organisations are finalising budgets and looking for tax-effective purchases before 30 June.</p>
-  <div class="eofy-callout">
-    <h3>EOFY Campaign Focus â May / June 2026</h3>
-    <p>A dedicated EOFY push will run across <strong>email and Facebook</strong> during this period. Messaging will centre on <strong>tax deductibility, budget spend deadlines, and purchase urgency</strong> â positioning AEDs as smart, responsible end-of-year investments for workplaces, sporting clubs, and community organisations.</p>
-    <p style="margin-top: 12px;">The May Facebook campaign will be EOFY focused. Both the May and June newsletters will carry EOFY-themed content with a clear call to action to enquire or purchase before 30 June.</p>
-  </div>
-</section>
-
-<section>
-  <div class="section-tag">Activity Timeline</div>
-  <h2>May through December 2026</h2>
-  <p>Newsletter and website maintenance run every month. Facebook ad campaigns are created every two months, with a post-learning-phase check-in following each launch.</p>
-  <div class="timeline">
-    <div class="timeline-grid">
-
-      <div class="month-label"><span class="month-name">May</span><span class="month-year">2026</span><div class="month-connector"></div></div>
-      <div class="month-content"><div class="month-items">
-        <div class="month-item highlight"><span class="item-tag tag-newsletter">Newsletter</span>EOFY awareness â tax deductibility, workplace compliance, pre-30 June urgency. Article sourced, written, designed, and published to website.</div>
-        <div class="month-item highlight"><span class="item-tag tag-ads">Facebook Ad</span>Campaign 1 launch â EOFY focused, targeting workplace decision-makers and club administrators. Creative, copy, setup, and publish.</div>
-        <div class="month-item eofy"><span class="item-tag tag-eofy">EOFY</span>EOFY campaign live â coordinated across email and Facebook</div>
-        <div class="month-item regular"><span class="item-tag tag-web">Website</span>Routine maintenance, WordPress and Integrately checks</div>
-      </div></div>
-
-      <div class="month-label"><span class="month-name">Jun</span><span class="month-year">2026</span><div class="month-connector"></div></div>
-      <div class="month-content"><div class="month-items">
-        <div class="month-item highlight"><span class="item-tag tag-newsletter">Newsletter</span>Final EOFY push â last call before 30 June, save story or product spotlight included</div>
-        <div class="month-item eofy"><span class="item-tag tag-eofy">EOFY</span>Post-learning-phase check-in on May campaign. 30 June deadline â all messaging reflects the cutoff.</div>
-        <div class="month-item regular"><span class="item-tag tag-web">Website</span>Routine maintenance and updates</div>
-      </div></div>
-
-      <div class="month-label"><span class="month-name">Jul</span><span class="month-year">2026</span><div class="month-connector"></div></div>
-      <div class="month-content"><div class="month-items">
-        <div class="month-item highlight"><span class="item-tag tag-newsletter">Newsletter</span>New financial year angle â "Is your workplace AED compliant?" Article sourced, written, designed, and published to site.</div>
-        <div class="month-item highlight"><span class="item-tag tag-ads">Facebook Ad</span>Campaign 2 launch â compliance and workplace safety angle. Creative, copy, setup, and publish.</div>
-        <div class="month-item regular"><span class="item-tag tag-web">Website</span>Routine maintenance and updates</div>
-      </div></div>
-
-      <div class="month-label"><span class="month-name">Aug</span><span class="month-year">2026</span><div class="month-connector"></div></div>
-      <div class="month-content"><div class="month-items">
-        <div class="month-item highlight"><span class="item-tag tag-newsletter">Newsletter</span>Education and awareness â cardiac arrest statistics, community stories, save feature. Published to website.</div>
-        <div class="month-item regular"><span class="item-tag tag-ads">Facebook Ad</span>Post-learning-phase check-in on July campaign</div>
-        <div class="month-item regular"><span class="item-tag tag-web">Website</span>Routine maintenance and updates</div>
-        <div class="month-item regular"><span class="item-tag tag-review">Review</span>Quarterly debrief â direction and priorities for Q3/Q4</div>
-      </div></div>
-
-      <div class="month-label"><span class="month-name">Sep</span><span class="month-year">2026</span><div class="month-connector"></div></div>
-      <div class="month-content"><div class="month-items">
-        <div class="month-item highlight"><span class="item-tag tag-newsletter">Newsletter</span>Spring and sport season â AEDs for clubs, gyms, outdoor venues, and events. Published to website.</div>
-        <div class="month-item highlight"><span class="item-tag tag-ads">Facebook Ad</span>Campaign 3 launch â sporting clubs and community venues. Creative, copy, setup, and publish.</div>
-        <div class="month-item regular"><span class="item-tag tag-web">Website</span>Routine maintenance and updates</div>
-      </div></div>
-
-      <div class="month-label"><span class="month-name">Oct</span><span class="month-year">2026</span><div class="month-connector"></div></div>
-      <div class="month-content"><div class="month-items">
-        <div class="month-item highlight"><span class="item-tag tag-newsletter">Newsletter</span>World Heart Day follow-up â awareness content, recent cardiac news, community saves. Published to website.</div>
-        <div class="month-item regular"><span class="item-tag tag-ads">Facebook Ad</span>Post-learning-phase check-in on September campaign</div>
-        <div class="month-item regular"><span class="item-tag tag-web">Website</span>Routine maintenance and updates</div>
-      </div></div>
-
-      <div class="month-label"><span class="month-name">Nov</span><span class="month-year">2026</span><div class="month-connector"></div></div>
-      <div class="month-content"><div class="month-items">
-        <div class="month-item highlight"><span class="item-tag tag-newsletter">Newsletter</span>Summer event season readiness â AEDs for festivals, outdoor events, and large gatherings. Published to website.</div>
-        <div class="month-item highlight"><span class="item-tag tag-ads">Facebook Ad</span>Campaign 4 launch â end of year purchasing, workplace or grant-funded buying angle. Creative, copy, setup, and publish.</div>
-        <div class="month-item regular"><span class="item-tag tag-web">Website</span>Routine maintenance and updates</div>
-      </div></div>
-
-      <div class="month-label"><span class="month-name">Dec</span><span class="month-year">2026</span><div class="month-connector"></div></div>
-      <div class="month-content"><div class="month-items">
-        <div class="month-item highlight"><span class="item-tag tag-newsletter">Newsletter</span>Year in review â saves, milestones, subscriber thank you, look ahead to 2027. Published to website.</div>
-        <div class="month-item regular"><span class="item-tag tag-ads">Facebook Ad</span>Post-learning-phase check-in on November campaign</div>
-        <div class="month-item regular"><span class="item-tag tag-web">Website</span>Routine maintenance and holiday period checks</div>
-        <div class="month-item regular"><span class="item-tag tag-review">Review</span>Full-year summary and 2027 retainer discussion</div>
-      </div></div>
-
-    </div>
-  </div>
-</section>
-
-<section style="background: var(--black-mid);">
-  <div class="section-tag">Scope Clarity</div>
-  <h2>What's In, What's Out</h2>
-  <p>The table below clearly outlines what is and is not covered under this retainer, removing any ambiguity around deliverables and expectations.</p>
-  <table class="scope-table">
-    <thead>
-      <tr><th>Service</th><th>Status</th><th>Notes</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Monthly email newsletter â sourcing, writing, design, and send</td><td><span class="included-yes">INCLUDED</span></td><td>Full production each month</td></tr>
-      <tr><td>Newsletter article published to website monthly</td><td><span class="included-yes">INCLUDED</span></td><td>Content uploaded and formatted on site each month</td></tr>
-      <tr><td>Newsletter graphic design</td><td><span class="included-yes">INCLUDED</span></td><td>Layout and imagery as part of newsletter production</td></tr>
-      <tr><td>WordPress maintenance and updates</td><td><span class="included-yes">INCLUDED</span></td><td>Plugins, platform, minor content edits</td></tr>
-      <tr><td>Integrately and WordPress integration bug fixing</td><td><span class="included-yes">INCLUDED</span></td><td>Troubleshooting and resolution of integration issues</td></tr>
-      <tr><td>Facebook ad creation â every two months</td><td><span class="included-yes">INCLUDED</span></td><td>Graphic design, copy, campaign setup, and targeting</td></tr>
-      <tr><td>Post-learning-phase check-in per campaign</td><td><span class="included-yes">INCLUDED</span></td><td>One review after algorithm settles â not ongoing monitoring</td></tr>
-      <tr><td>Basic edits to existing design assets and flyers</td><td><span class="included-yes">INCLUDED</span></td><td>Minor updates to existing files only</td></tr>
-      <tr><td>Quarterly strategic debrief</td><td><span class="included-yes">INCLUDED</span></td><td>Written direction and priorities review each quarter</td></tr>
-      <tr><td>Ongoing / weekly Facebook ad monitoring</td><td><span class="included-no">NOT INCLUDED</span></td><td>Available as a standalone add-on â quoted separately</td></tr>
-      <tr><td>Google Ads creation and management</td><td><span class="included-no">NOT INCLUDED</span></td><td>Available as a standalone engagement â quoted separately</td></tr>
-      <tr><td>New website page builds or redesign</td><td><span class="included-no">NOT INCLUDED</span></td><td>Quoted on a per-project basis</td></tr>
-      <tr><td>Major design file creation (new brand assets, print, full collateral)</td><td><span class="included-no">NOT INCLUDED</span></td><td>Quoted as a separate project</td></tr>
-      <tr><td>Performance and analytics reporting</td><td><span class="included-no">NOT INCLUDED</span></td><td>Not part of this arrangement</td></tr>
-      <tr><td>Additional Facebook campaigns beyond bimonthly schedule</td><td><span class="included-extra">ADD-ON</span></td><td>Quoted per campaign on request</td></tr>
-      <tr><td>Organic social media content (Facebook / Instagram posts)</td><td><span class="included-extra">ADD-ON</span></td><td>Package pricing available on request</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<div class="oos-section">
-  <div class="section-tag">Out of Scope</div>
-  <h2>Not Covered Under This Retainer</h2>
-  <p>The following are expressly outside the scope of this arrangement. All out-of-scope work is scoped and quoted separately in writing before any work commences.</p>
-  <div class="oos-items">
-    <div class="oos-item"><strong>Google Ads Management</strong>Not active under this arrangement. Available to restart as a standalone service.</div>
-    <div class="oos-item"><strong>Ongoing Ad Monitoring</strong>Consistent weekly or daily management is not included. One post-learning-phase check-in per campaign only.</div>
-    <div class="oos-item"><strong>Major Design Projects</strong>New brand assets, full collateral suites, signage, and print production files are quoted as separate projects.</div>
-    <div class="oos-item"><strong>New Website Builds</strong>Full page builds, redesigns, or new product catalogue sections are quoted per project.</div>
-    <div class="oos-item"><strong>Performance Reporting</strong>Analytics reporting, ad performance summaries, and SEO reporting are not part of this retainer.</div>
-    <div class="oos-item"><strong>Photography or Video Production</strong>No visual asset production included. Client to supply product photography and imagery as needed.</div>
-  </div>
-</div>
-
-<section>
-  <div class="section-tag">Marketing Strategy</div>
-  <h2>Strategic Direction â 2026</h2>
-  <p>This retainer is built around consistent, quality output rather than volume. The following priorities guide work across the full engagement period.</p>
-  <div class="strategy-points">
-    <div class="strategy-point">
-      <span class="point-number">01</span>
-      <div class="point-text">
-        <h4>Keep the Brand Visible and Trusted</h4>
-        <p>Monthly newsletters keep the brand in front of existing customers and warm leads throughout the year. Consistent, professional communication reinforces authority in the AED space and builds long-term trust with subscribers who may not be ready to purchase immediately but will be.</p>
-      </div>
-    </div>
-    <div class="strategy-point">
-      <span class="point-number">02</span>
-      <div class="point-text">
-        <h4>Capitalise on Key Purchase Windows</h4>
-        <p>EOFY (May/June) is the primary campaign focus for 2026. Secondary opportunities include the new financial year (July), the spring sport season (September/October), and the end-of-year budget cycle (November). Bimonthly ad campaigns are timed to align with these moments.</p>
-      </div>
-    </div>
-    <div class="strategy-point">
-      <span class="point-number">03</span>
-      <div class="point-text">
-        <h4>Lead with Saves and Real Stories</h4>
-        <p>Cardiac arrest saves are among the most powerful content available. Newsletters should feature real saves, community stories, and testimonials wherever possible. This builds emotional connection and demonstrates real-world impact far more effectively than product specifications alone.</p>
-      </div>
-    </div>
-    <div class="strategy-point">
-      <span class="point-number">04</span>
-      <div class="point-text">
-        <h4>Target Decision-Makers, Not Just Browsers</h4>
-        <p>Facebook campaigns should target workplace managers, HR professionals, club administrators, and facilities managers â the people with authority to purchase. B2B messaging around compliance, liability, and duty of care resonates with this audience and drives higher quality enquiries.</p>
-      </div>
-    </div>
-    <div class="strategy-point">
-      <span class="point-number">05</span>
-      <div class="point-text">
-        <h4>Maintain a Clean, Reliable Website</h4>
-        <p>The website is the primary conversion point. Keeping it fast, functional, and properly integrated is non-negotiable. Broken integrations or outdated content will undermine every other channel. Ongoing maintenance ensures the site supports rather than hinders sales.</p>
-      </div>
-    </div>
-    <div class="strategy-point">
-      <span class="point-number">06</span>
-      <div class="point-text">
-        <h4>Build Organic Visibility Through Content</h4>
-        <p>Publishing newsletter articles to the website builds a library of relevant, searchable content over time. Consistent publishing in a niche like AEDs compounds steadily and improves organic search visibility without requiring a separate SEO retainer.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="terms-note" style="margin-top: 40px;">
-    <p><strong>Additional Opportunities:</strong> If the business wants to grow beyond this retainer, the following are worth discussing â organic social media posting (2 to 4 posts per week), Google Ads reactivation, a CPR awareness content series, or a referral program targeting allied health and first responder networks.</p>
-    <p>These are not included here but can be scoped and added at any point during the engagement.</p>
-  </div>
-</section>
-
-<section style="background: var(--black-mid);">
-  <div class="section-tag">Engagement Terms</div>
-  <h2>How This Works</h2>
-  <p>Clear expectations from the outset keep the working relationship straightforward for both parties.</p>
-  <div class="inclusions-grid" style="margin-top: 28px;">
-    <div class="inclusion-card">
-      <h3>Payment</h3>
-      <ul>
-        <li>$550 + GST invoiced monthly in advance</li>
-        <li>Payment due within 14 days of invoice</li>
-        <li>Ad spend billed separately â Facebook charges the client's card directly</li>
-      </ul>
-    </div>
-    <div class="inclusion-card">
-      <h3>Notice Period</h3>
-      <ul>
-        <li>30-day written notice required to pause or end the retainer</li>
-        <li>Month already invoiced is not refundable once work has commenced</li>
-        <li>Out-of-scope work requires written approval before commencement</li>
-      </ul>
-    </div>
-    <div class="inclusion-card">
-      <h3>Client Responsibilities</h3>
-      <ul>
-        <li>Provide save stories, product updates, and pricing changes when available</li>
-        <li>Approve newsletter drafts within 48 hours of delivery</li>
-        <li>Maintain active credentials for website and email platform</li>
-        <li>Manage Facebook Business Manager and ad account access</li>
-      </ul>
-    </div>
-    <div class="inclusion-card">
-      <h3>Ad Hoc Work</h3>
-      <ul>
-        <li>Work outside this retainer is available at an agreed hourly rate</li>
-        <li>All out-of-scope work quoted in writing before it begins</li>
-        <li>Examples: extra campaigns, landing pages, print materials, video</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div>
-    <p>Prepared for Cardiac Defibrillators Australia &nbsp;|&nbsp; Retainer effective May 2026</p>
-    <p style="margin-top: 4px;">This document outlines the revised marketing retainer scope and replaces all previous verbal arrangements.</p>
-  </div>
-  <div class="footer-logo">CDA &times; 2026</div>
-</footer>
-
-
-<!-- LIVE EDITOR -->
-<style>
-  #live-edit-btn {
-    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-    background: #D42B2B; color: #fff; border: none; border-radius: 6px;
-    padding: 10px 18px; font-family: 'DM Mono', monospace; font-size: 12px;
-    letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
-    box-shadow: 0 4px 20px rgba(212,43,43,0.4); transition: opacity .2s;
-  }
-  #live-edit-btn:hover { opacity: 0.85; }
-  #live-edit-overlay {
-    display: none; position: fixed; inset: 0; z-index: 10000;
-    background: rgba(13,13,13,0.97); flex-direction: column;
-    font-family: 'DM Mono', monospace;
-  }
-  #live-edit-overlay.active { display: flex; }
-  #live-edit-topbar {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 20px; background: #1A1A1A;
-    border-bottom: 2px solid #D42B2B;
-  }
-  #live-edit-topbar span {
-    color: #D42B2B; font-size: 12px; letter-spacing: 0.15em;
-    text-transform: uppercase; flex: 1;
-  }
-  #live-edit-save-btn {
-    background: #D42B2B; color: #fff; border: none; border-radius: 4px;
-    padding: 8px 20px; font-family: 'DM Mono', monospace; font-size: 11px;
-    letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
-  }
-  #live-edit-save-btn:hover { background: #A81F1F; }
-  #live-edit-close-btn {
-    background: transparent; color: #888; border: 1px solid #333;
-    border-radius: 4px; padding: 8px 14px; font-family: 'DM Mono', monospace;
-    font-size: 11px; cursor: pointer;
-  }
-  #live-edit-close-btn:hover { color: #fff; border-color: #666; }
-  #live-edit-status {
-    font-size: 11px; color: #888; margin-left: 8px;
-  }
-  #live-edit-textarea {
-    flex: 1; background: #0D0D0D; color: #C8C8C8; border: none;
-    padding: 20px; font-family: 'DM Mono', monospace; font-size: 13px;
-    line-height: 1.6; resize: none; outline: none; tab-size: 2;
-  }
-  #live-edit-pat-row {
-    padding: 10px 20px; background: #111; border-bottom: 1px solid #222;
-    display: flex; align-items: center; gap: 10px;
-  }
-  #live-edit-pat-row label {
-    color: #888; font-size: 11px; text-transform: uppercase;
-    letter-spacing: 0.1em; white-space: nowrap;
-  }
-  #live-edit-pat {
-    flex: 1; background: #1A1A1A; color: #fff; border: 1px solid #333;
-    border-radius: 4px; padding: 6px 10px; font-family: 'DM Mono', monospace;
-    font-size: 12px; outline: none;
-  }
-  #live-edit-pat:focus { border-color: #D42B2B; }
-  #live-edit-pwd-modal {
-    display: none; position: fixed; inset: 0; z-index: 10001;
-    background: rgba(0,0,0,0.85); align-items: center; justify-content: center;
-  }
-  #live-edit-pwd-modal.active { display: flex; }
-  #live-edit-pwd-box {
-    background: #1A1A1A; border: 1px solid #D42B2B; border-radius: 8px;
-    padding: 32px; min-width: 320px; display: flex; flex-direction: column; gap: 16px;
-  }
-  #live-edit-pwd-box h3 {
-    color: #D42B2B; font-family: 'DM Mono', monospace; font-size: 13px;
-    letter-spacing: 0.15em; text-transform: uppercase; margin: 0;
-  }
-  #live-edit-pwd-input {
-    background: #0D0D0D; color: #fff; border: 1px solid #333;
-    border-radius: 4px; padding: 10px 14px; font-family: 'DM Mono', monospace;
-    font-size: 14px; outline: none; width: 100%; box-sizing: border-box;
-  }
-  #live-edit-pwd-input:focus { border-color: #D42B2B; }
-  #live-edit-pwd-submit {
-    background: #D42B2B; color: #fff; border: none; border-radius: 4px;
-    padding: 10px; font-family: 'DM Mono', monospace; font-size: 12px;
-    letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
-  }
-  #live-edit-pwd-err { color: #FF3B3B; font-size: 11px; display: none; }
+*{box-sizing:border-box;margin:0;padding:0;}
+.db{background:#0a0a0a;padding:24px;border-radius:12px;color:#fff;font-family:var(--font-sans);}
+.pulse{width:10px;height:10px;border-radius:50%;background:#da291c;animation:blink 1.5s infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.htitle{font-size:16px;font-weight:500;color:#fff;letter-spacing:0.04em;}
+.hsub{font-size:13px;color:#aaa;margin-top:3px;}
+.badge{background:#1c1c1c;border:0.5px solid #333;border-radius:6px;padding:6px 12px;font-size:12px;color:#aaa;}
+.slabel{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;}
+.kpi4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px;}
+.kpi{background:#161616;border:0.5px solid #2a2a2a;border-radius:10px;padding:14px;}
+.kpi.red{border-color:#da291c55;}
+.kl{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;}
+.kv{font-size:24px;font-weight:500;color:#fff;line-height:1;}
+.kv.red{color:#da291c;}
+.ks{font-size:12px;color:#555;margin-top:4px;}
+.camp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.camp-card{background:#161616;border:0.5px solid #2a2a2a;border-radius:10px;overflow:hidden;}
+.camp-header{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;}
+.camp-hname{font-size:15px;font-weight:500;color:#fff;}
+.camp-badge{background:rgba(0,0,0,0.3);border-radius:4px;padding:3px 8px;font-size:11px;color:rgba(255,255,255,0.85);}
+.camp-body{padding:14px;}
+.camp-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.cs{text-align:center;}
+.csv{font-size:18px;font-weight:500;color:#fff;}
+.csl{font-size:11px;color:#777;margin-top:3px;}
+.cm-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid #1f1f1f;}
+.cm-k{font-size:12px;color:#777;}
+.cm-v{font-size:12px;color:#ddd;}
+.ad-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.ad-card{background:#161616;border:0.5px solid #2a2a2a;border-radius:10px;overflow:hidden;}
+.ad-img-area{height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#222;}
+.ad-img{width:100%;height:100%;object-fit:cover;}
+.ad-body{padding:12px 14px;}
+.ad-headline{font-size:14px;font-weight:500;color:#fff;margin-bottom:5px;line-height:1.4;}
+.ad-copy{font-size:12px;color:#888;line-height:1.6;margin-bottom:10px;}
+.ad-footer{display:flex;justify-content:space-between;align-items:center;border-top:0.5px solid #222;padding-top:8px;}
+.ad-cta{background:#da291c;border-radius:5px;padding:5px 12px;font-size:11px;color:#fff;font-weight:500;}
+.ad-eng{font-size:11px;color:#666;}
+.two-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.panel{background:#161616;border:0.5px solid #2a2a2a;border-radius:10px;padding:14px;}
+.panel-title{font-size:11px;color:#666;margin-bottom:10px;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.bn{font-size:12px;color:#aaa;min-width:72px;}
+.bt{flex:1;background:#1f1f1f;border-radius:3px;height:6px;overflow:hidden;}
+.bf{height:100%;border-radius:3px;}
+.bv{font-size:12px;color:#ddd;min-width:48px;text-align:right;}
+.chart-wrap{position:relative;width:100%;height:220px;margin-bottom:16px;}
+.legend{display:flex;gap:16px;margin-bottom:8px;}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:12px;color:#aaa;}
+.leg-sq{width:10px;height:10px;border-radius:2px;}
+.insight{background:#161616;border-left:3px solid #da291c;border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:4px;}
+.insight-title{font-size:12px;color:#da291c;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;}
+.insight-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;}
+.i-dot{width:4px;height:4px;border-radius:50%;background:#da291c;margin-top:6px;flex-shrink:0;}
+.i-text{font-size:13px;color:#ccc;line-height:1.6;}
 </style>
 
-<button id="live-edit-btn" onclick="liveEditOpen()">&#9998; Edit</button>
+<div class="db">
+  <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Cardiac Defibrillators Meta ads dashboard March 2026, two active campaigns, 109 leads, $1,092 total spend.</h2>
 
-<div id="live-edit-pwd-modal">
-  <div id="live-edit-pwd-box">
-    <h3>Editor Password</h3>
-    <input id="live-edit-pwd-input" type="password" placeholder="Enter password..." autocomplete="off" />
-    <span id="live-edit-pwd-err">Incorrect password.</span>
-    <button id="live-edit-pwd-submit" onclick="liveEditCheckPwd()">Unlock</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:0.5px solid #1f1f1f;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="pulse"></div>
+      <div>
+        <div class="htitle">Cardiac Defibrillators &nbsp;·&nbsp; Meta Ads</div>
+        <div class="hsub">2 active campaigns &nbsp;·&nbsp; Lead generation &nbsp;·&nbsp; March 1–31, 2026</div>
+      </div>
+    </div>
+    <div class="badge">March 2026 &nbsp;·&nbsp; 31 days</div>
+  </div>
+
+  <div class="slabel">Overview</div>
+  <div class="kpi4" style="margin-bottom:10px;">
+    <div class="kpi"><div class="kl">Total spend</div><div class="kv">$1,092</div><div class="ks">$621.70 + $470.79</div></div>
+    <div class="kpi"><div class="kl">Total leads</div><div class="kv">109</div><div class="ks">72 + 37 form leads</div></div>
+    <div class="kpi red"><div class="kl">Blended CPL</div><div class="kv red">$10.02</div><div class="ks">Across both campaigns</div></div>
+    <div class="kpi"><div class="kl">Total reach</div><div class="kv">29.5K</div><div class="ks">15,922 + 13,635</div></div>
+  </div>
+  <div class="kpi4" style="margin-bottom:20px;">
+    <div class="kpi"><div class="kl">Total clicks</div><div class="kv">1,960</div><div class="ks">1,442 + 518</div></div>
+    <div class="kpi"><div class="kl">Blended CTR</div><div class="kv">1.56%</div><div class="ks">Link click-through</div></div>
+    <div class="kpi"><div class="kl">Blended CPC</div><div class="kv">$1.24</div><div class="ks">Cost per link click</div></div>
+    <div class="kpi"><div class="kl">Avg frequency</div><div class="kv">1.97</div><div class="ks">Blended across reach</div></div>
+  </div>
+
+  <div class="slabel">Campaigns</div>
+  <div class="camp-grid">
+    <div class="camp-card">
+      <div class="camp-header" style="background:#da291c;">
+        <div class="camp-hname">EasyPort</div>
+        <div class="camp-badge">Top performer</div>
+      </div>
+      <div class="camp-body">
+        <div class="camp-stats">
+          <div class="cs"><div class="csv">72</div><div class="csl">Leads</div></div>
+          <div class="cs"><div class="csv">$8.63</div><div class="csl">CPL</div></div>
+          <div class="cs"><div class="csv">$621</div><div class="csl">Spent</div></div>
+        </div>
+        <div class="cm-row"><div class="cm-k">Reach</div><div class="cm-v">15,922</div></div>
+        <div class="cm-row"><div class="cm-k">Frequency</div><div class="cm-v">2.12</div></div>
+        <div class="cm-row"><div class="cm-k">CPC (link)</div><div class="cm-v">$0.98</div></div>
+        <div class="cm-row"><div class="cm-k">CTR (link)</div><div class="cm-v">1.89%</div></div>
+        <div class="cm-row"><div class="cm-k">Clicks (all)</div><div class="cm-v">1,442</div></div>
+        <div class="cm-row"><div class="cm-k">CTR (all)</div><div class="cm-v">4.28%</div></div>
+        <div class="cm-row"><div class="cm-k">CPC (all)</div><div class="cm-v">$0.43</div></div>
+        <div class="cm-row" style="border:none;"><div class="cm-k">Budget</div><div class="cm-v">$20/day</div></div>
+      </div>
+    </div>
+    <div class="camp-card">
+      <div class="camp-header" style="background:#2a2a2a;">
+        <div class="camp-hname">Lookalike to CR...</div>
+        <div class="camp-badge">Underperforming</div>
+      </div>
+      <div class="camp-body">
+        <div class="camp-stats">
+          <div class="cs"><div class="csv">37</div><div class="csl">Leads</div></div>
+          <div class="cs"><div class="csv" style="color:#da291c;">$12.72</div><div class="csl">CPL</div></div>
+          <div class="cs"><div class="csv">$470</div><div class="csl">Spent</div></div>
+        </div>
+        <div class="cm-row"><div class="cm-k">Reach</div><div class="cm-v">13,635</div></div>
+        <div class="cm-row"><div class="cm-k">Frequency</div><div class="cm-v">1.78</div></div>
+        <div class="cm-row"><div class="cm-k">CPC (link)</div><div class="cm-v">$1.96</div></div>
+        <div class="cm-row"><div class="cm-k">CTR (link)</div><div class="cm-v">0.99%</div></div>
+        <div class="cm-row"><div class="cm-k">Clicks (all)</div><div class="cm-v">518</div></div>
+        <div class="cm-row"><div class="cm-k">CTR (all)</div><div class="cm-v">2.14%</div></div>
+        <div class="cm-row"><div class="cm-k">CPC (all)</div><div class="cm-v">$0.91</div></div>
+        <div class="cm-row" style="border:none;"><div class="cm-k">Budget</div><div class="cm-v">Ad set level</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">Ad creatives</div>
+  <div class="ad-grid">
+    <div class="ad-card">
+      <div class="ad-img-area">
+        <img class="ad-img" src="/mnt/user-data/uploads/download-1.png" alt="Have you met FRED?" onerror="this.style.display='none';this.parentNode.style.background='#da291c';this.parentNode.innerHTML='<div style=\'padding:20px;text-align:center;\'><div style=\'font-size:22px;font-weight:500;color:#fff;\'>Have you met FRED?</div></div>'"/>
+      </div>
+      <div class="ad-body">
+        <div class="ad-headline">Have you met FRED?</div>
+        <div class="ad-copy">Extremely durable - perfect for the workplace, sporting club, travel and home. Australia's longest warranty AED.</div>
+        <div class="ad-footer">
+          <div class="ad-cta">Learn more</div>
+          <div class="ad-eng">429 reactions &nbsp;·&nbsp; 97 comments</div>
+        </div>
+      </div>
+    </div>
+    <div class="ad-card">
+      <div class="ad-img-area">
+        <img class="ad-img" src="/mnt/user-data/uploads/download-2.png" alt="Not all devices are built to last. Ours is." onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';this.parentNode.innerHTML='<div style=\'padding:20px;text-align:center;\'><div style=\'font-size:20px;font-weight:500;color:#fff;\'>Not all devices are built to last. Ours is.</div></div>'"/>
+      </div>
+      <div class="ad-body">
+        <div class="ad-headline">Not all devices are built to last. Ours is.</div>
+        <div class="ad-copy">Small in size. Built for real emergencies. Clinical-grade defibrillation and ECG monitoring in your pocket.</div>
+        <div class="ad-footer">
+          <div class="ad-cta">Learn more</div>
+          <div class="ad-eng">278 reactions &nbsp;·&nbsp; 88 comments</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">Performance comparison</div>
+  <div class="two-row">
+    <div class="panel">
+      <div class="panel-title">Leads &amp; cost per lead</div>
+      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:66%;background:#da291c;"></div></div><div class="bv">72 leads</div></div>
+      <div class="bar-row"><div class="bn">Lookalike</div><div class="bt"><div class="bf" style="width:34%;background:#555;"></div></div><div class="bv">37 leads</div></div>
+      <div style="height:10px;"></div>
+      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:68%;background:#da291c;"></div></div><div class="bv">$8.63</div></div>
+      <div class="bar-row"><div class="bn">Lookalike</div><div class="bt"><div class="bf" style="width:100%;background:#555;"></div></div><div class="bv">$12.72</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">CTR &amp; CPC (link clicks)</div>
+      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:100%;background:#da291c;"></div></div><div class="bv">1.89%</div></div>
+      <div class="bar-row"><div class="bn">Lookalike</div><div class="bt"><div class="bf" style="width:52%;background:#555;"></div></div><div class="bv">0.99%</div></div>
+      <div style="height:10px;"></div>
+      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:50%;background:#da291c;"></div></div><div class="bv">$0.98</div></div>
+      <div class="bar-row"><div class="bn">Lookalike</div><div class="bt"><div class="bf" style="width:100%;background:#555;"></div></div><div class="bv">$1.96</div></div>
+    </div>
+  </div>
+
+  <div class="slabel">Campaign metrics chart</div>
+  <div class="legend">
+    <div class="leg-item"><div class="leg-sq" style="background:#da291c;"></div>EasyPort</div>
+    <div class="leg-item"><div class="leg-sq" style="background:#555;border:1px dashed #888;"></div>Lookalike</div>
+  </div>
+  <div class="chart-wrap">
+    <canvas id="perfChart" role="img" aria-label="Grouped bar chart comparing EasyPort and Lookalike on leads, CPL, CTR and CPC for March 2026">EasyPort: 72 leads, $8.63 CPL, 1.89% CTR, $0.98 CPC. Lookalike: 37 leads, $12.72 CPL, 0.99% CTR, $1.96 CPC.</canvas>
+  </div>
+
+  <div class="slabel">Insights</div>
+  <div class="insight">
+    <div class="insight-title">March 2026 key insights</div>
+    <div class="insight-row"><div class="i-dot"></div><div class="i-text">EasyPort delivers 2x the leads at 47% lower CPL - it deserves the majority of budget going into April.</div></div>
+    <div class="insight-row"><div class="i-dot"></div><div class="i-text">EasyPort CTR (1.89%) is nearly double the Lookalike CTR (0.99%) - the "FRED" creative resonates strongly with a broad audience.</div></div>
+    <div class="insight-row"><div class="i-dot"></div><div class="i-text">EasyPort frequency is at 2.12 after one month - watch closely in April. At 2.5+ you will likely see CPL begin to climb.</div></div>
+    <div class="insight-row"><div class="i-dot"></div><div class="i-text">The "Have you met FRED?" creative has strong social proof (429 reactions, 97 comments) - duplicate the post and keep the engagement rather than creating fresh ads.</div></div>
+    <div class="insight-row"><div class="i-dot"></div><div class="i-text">Lookalike audience quality needs review - the CPL gap and lower CTR suggest the source audience may not reflect your best buyer profile.</div></div>
   </div>
 </div>
 
-<div id="live-edit-overlay">
-  <div id="live-edit-topbar">
-    <span>&#9998; Live Editor &mdash; cardiac.broadcollective.com.au</span>
-    <span id="live-edit-status"></span>
-    <button id="live-edit-close-btn" onclick="liveEditClose()">Close</button>
-    <button id="live-edit-save-btn" onclick="liveEditSave()">&#8593; Save &amp; Deploy</button>
-  </div>
-  <div id="live-edit-pat-row">
-    <label>GitHub PAT:</label>
-    <input id="live-edit-pat" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
-  </div>
-  <textarea id="live-edit-textarea" spellcheck="false"></textarea>
-</div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-(function() {
-  // ---- CONFIG ----
-  var EDIT_PASSWORD = 'broadcast2026';
-  var REPO = 'howdy-blip/cardiac';
-  var FILE_PATH = 'index.html';
-  var BRANCH = 'main';
-  // ----------------
-
-  window.liveEditOpen = function() {
-    document.getElementById('live-edit-pwd-modal').classList.add('active');
-    setTimeout(function() { document.getElementById('live-edit-pwd-input').focus(); }, 50);
-  };
-
-  window.liveEditCheckPwd = function() {
-    var val = document.getElementById('live-edit-pwd-input').value;
-    if (val === EDIT_PASSWORD) {
-      document.getElementById('live-edit-pwd-modal').classList.remove('active');
-      document.getElementById('live-edit-pwd-input').value = '';
-      document.getElementById('live-edit-pwd-err').style.display = 'none';
-      liveEditShow();
-    } else {
-      document.getElementById('live-edit-pwd-err').style.display = 'block';
-      document.getElementById('live-edit-pwd-input').value = '';
+new Chart(document.getElementById('perfChart'),{
+  type:'bar',
+  data:{
+    labels:['Leads','CPL ($)','CTR link (%)','CPC link ($)'],
+    datasets:[
+      {label:'EasyPort',data:[72,8.63,1.89,0.98],backgroundColor:'#da291c',borderWidth:0},
+      {label:'Lookalike',data:[37,12.72,0.99,1.96],backgroundColor:'#555555',borderColor:'#888888',borderWidth:1}
+    ]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{ticks:{color:'#aaa',font:{size:13}},grid:{color:'#1f1f1f'}},
+      y:{ticks:{color:'#aaa',font:{size:13}},grid:{color:'#1f1f1f'}}
     }
-  };
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && document.getElementById('live-edit-pwd-modal').classList.contains('active')) {
-      liveEditCheckPwd();
-    }
-    if (e.key === 'Escape') {
-      document.getElementById('live-edit-pwd-modal').classList.remove('active');
-      liveEditClose();
-    }
-  });
-
-  window.liveEditShow = function() {
-    setStatus('Loading current file...');
-    document.getElementById('live-edit-overlay').classList.add('active');
-    fetch('https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH + '?ref=' + BRANCH)
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        window._leFileSha = data.sha;
-        var content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
-        document.getElementById('live-edit-textarea').value = content;
-        setStatus('Ready — ' + content.length + ' bytes');
-      })
-      .catch(function(e) { setStatus('Error loading file: ' + e.message); });
-  };
-
-  window.liveEditClose = function() {
-    document.getElementById('live-edit-overlay').classList.remove('active');
-  };
-
-  window.liveEditSave = function() {
-    var pat = document.getElementById('live-edit-pat').value.trim();
-    if (!pat) { setStatus('Please enter your GitHub PAT first.'); return; }
-    var content = document.getElementById('live-edit-textarea').value;
-    var encoded = btoa(unescape(encodeURIComponent(content)));
-    setStatus('Saving...');
-    fetch('https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH, {
-      method: 'PUT',
-      headers: {
-        'Authorization': 'Bearer ' + pat,
-        'Content-Type': 'application/json',
-        'Accept': 'application/vnd.github+json'
-      },
-      body: JSON.stringify({
-        message: 'Live edit: update ' + FILE_PATH,
-        content: encoded,
-        sha: window._leFileSha,
-        branch: BRANCH
-      })
-    })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data.content && data.content.sha) {
-        window._leFileSha = data.content.sha;
-        setStatus('Saved! Deploying to GitHub Pages... (~ 30s)');
-      } else {
-        setStatus('Error: ' + (data.message || JSON.stringify(data)));
-      }
-    })
-    .catch(function(e) { setStatus('Network error: ' + e.message); });
-  };
-
-  function setStatus(msg) {
-    var el = document.getElementById('live-edit-status');
-    if (el) el.textContent = msg;
   }
-})();
+});
 </script>
-<!-- END LIVE EDITOR -->
-
-</body>
-</html>

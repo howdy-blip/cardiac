@@ -1,73 +1,101 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-.db{background:#0a0a0a;padding:24px;border-radius:12px;color:#fff;font-family:var(--font-sans);}
-.pulse{width:10px;height:10px;border-radius:50%;background:#da291c;animation:blink 1.5s infinite;flex-shrink:0;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.htitle{font-size:16px;font-weight:500;color:#fff;letter-spacing:0.04em;}
-.hsub{font-size:13px;color:#aaa;margin-top:3px;}
-.badge{background:#1c1c1c;border:0.5px solid #333;border-radius:6px;padding:6px 12px;font-size:12px;color:#aaa;}
-.slabel{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;}
+:root{--font:'Inter',system-ui,-apple-system,sans-serif;--red:#da291c;--bg:#0a0a0a;--surface:#141414;--surface2:#1a1a1a;--border:#252525;--text:#f0f0f0;--muted:#999;--dim:#555;}
+.db{background:var(--bg);padding:28px;border-radius:14px;color:var(--text);font-family:var(--font);}
+
+/* Header */
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.brand-block{display:flex;align-items:center;gap:12px;}
+.pulse{width:9px;height:9px;border-radius:50%;background:var(--red);animation:blink 1.5s infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+.brand-text{}
+.brand-name{font-size:18px;font-weight:600;color:var(--text);letter-spacing:-0.02em;line-height:1.2;}
+.brand-meta{font-size:13px;color:var(--muted);margin-top:3px;font-weight:400;}
+.header-badge{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:13px;color:var(--muted);font-weight:500;white-space:nowrap;}
+
+/* Agency tag */
+.agency-tag{display:inline-flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--dim);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
+
+/* Section label */
+.slabel{font-size:11px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;}
+
+/* KPI grid */
 .kpi4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px;}
-.kpi{background:#161616;border:0.5px solid #2a2a2a;border-radius:10px;padding:14px;}
-.kpi.red{border-color:#da291c55;}
-.kl{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;}
-.kv{font-size:24px;font-weight:500;color:#fff;line-height:1;}
-.kv.red{color:#da291c;}
-.ks{font-size:12px;color:#555;margin-top:4px;}
-.camp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
-.camp-card{background:#161616;border:0.5px solid #2a2a2a;border-radius:10px;overflow:hidden;}
-.camp-header{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;}
-.camp-hname{font-size:15px;font-weight:500;color:#fff;}
-.camp-badge{background:rgba(0,0,0,0.3);border-radius:4px;padding:3px 8px;font-size:11px;color:rgba(255,255,255,0.85);}
-.camp-body{padding:14px;}
-.camp-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
-.cs{text-align:center;}
-.csv{font-size:18px;font-weight:500;color:#fff;}
-.csl{font-size:11px;color:#777;margin-top:3px;}
-.cm-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid #1f1f1f;}
-.cm-k{font-size:12px;color:#777;}
-.cm-v{font-size:12px;color:#ddd;}
-.ad-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
-.ad-card{background:#161616;border:0.5px solid #2a2a2a;border-radius:10px;overflow:hidden;}
-.ad-img-area{height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#222;}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.kpi.red{border-color:rgba(218,41,28,.35);}
+.kl{font-size:11px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;}
+.kv{font-size:26px;font-weight:600;color:var(--text);line-height:1;letter-spacing:-0.02em;}
+.kv.red{color:var(--red);}
+.ks{font-size:12px;color:var(--dim);margin-top:5px;}
+
+/* Campaign cards */
+.camp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.camp-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.camp-header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;}
+.camp-hname{font-size:16px;font-weight:600;color:#fff;letter-spacing:-0.01em;}
+.camp-badge{background:rgba(0,0,0,0.25);border-radius:5px;padding:4px 10px;font-size:11px;font-weight:600;color:rgba(255,255,255,.85);letter-spacing:0.04em;}
+.camp-body{padding:16px;}
+.camp-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
+.cs{text-align:center;background:var(--surface2);border-radius:8px;padding:10px 6px;}
+.csv{font-size:20px;font-weight:600;color:var(--text);letter-spacing:-0.02em;}
+.csl{font-size:11px;font-weight:500;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:0.06em;}
+.cm-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1c1c1c;}
+.cm-k{font-size:13px;color:var(--muted);}
+.cm-v{font-size:13px;font-weight:500;color:#ddd;}
+
+/* Ad creatives */
+.ad-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.ad-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.ad-img-area{height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#1e1e1e;}
 .ad-img{width:100%;height:100%;object-fit:cover;}
-.ad-body{padding:12px 14px;}
-.ad-headline{font-size:14px;font-weight:500;color:#fff;margin-bottom:5px;line-height:1.4;}
-.ad-copy{font-size:12px;color:#888;line-height:1.6;margin-bottom:10px;}
-.ad-footer{display:flex;justify-content:space-between;align-items:center;border-top:0.5px solid #222;padding-top:8px;}
-.ad-cta{background:#da291c;border-radius:5px;padding:5px 12px;font-size:11px;color:#fff;font-weight:500;}
-.ad-eng{font-size:11px;color:#666;}
-.two-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
-.panel{background:#161616;border:0.5px solid #2a2a2a;border-radius:10px;padding:14px;}
-.panel-title{font-size:11px;color:#666;margin-bottom:10px;}
-.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
-.bn{font-size:12px;color:#aaa;min-width:72px;}
-.bt{flex:1;background:#1f1f1f;border-radius:3px;height:6px;overflow:hidden;}
-.bf{height:100%;border-radius:3px;}
-.bv{font-size:12px;color:#ddd;min-width:48px;text-align:right;}
-.chart-wrap{position:relative;width:100%;height:220px;margin-bottom:16px;}
-.legend{display:flex;gap:16px;margin-bottom:8px;}
-.leg-item{display:flex;align-items:center;gap:5px;font-size:12px;color:#aaa;}
-.leg-sq{width:10px;height:10px;border-radius:2px;}
-.insight{background:#161616;border-left:3px solid #da291c;border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:4px;}
-.insight-title{font-size:12px;color:#da291c;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;}
-.insight-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;}
-.i-dot{width:4px;height:4px;border-radius:50%;background:#da291c;margin-top:6px;flex-shrink:0;}
-.i-text{font-size:13px;color:#ccc;line-height:1.6;}
+.ad-body{padding:14px 16px;}
+.ad-headline{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.4;letter-spacing:-0.01em;}
+.ad-copy{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
+.ad-footer{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #1e1e1e;padding-top:10px;}
+.ad-cta{background:var(--red);border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;color:#fff;letter-spacing:0.02em;}
+.ad-eng{font-size:12px;color:var(--dim);}
+
+/* Performance panels */
+.two-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.panel-title{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.bn{font-size:13px;color:var(--muted);min-width:72px;}
+.bt{flex:1;background:#1e1e1e;border-radius:4px;height:7px;overflow:hidden;}
+.bf{height:100%;border-radius:4px;}
+.bv{font-size:13px;font-weight:500;color:#ddd;min-width:52px;text-align:right;}
+
+/* Chart */
+.chart-wrap{position:relative;width:100%;height:220px;margin-bottom:20px;}
+.legend{display:flex;gap:16px;margin-bottom:10px;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);}
+.leg-sq{width:10px;height:10px;border-radius:3px;}
+
+/* Insights */
+.insight{background:var(--surface);border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:6px;}
+.insight-title{font-size:12px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;}
+.insight-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
+.i-dot{width:4px;height:4px;border-radius:50%;background:var(--red);margin-top:8px;flex-shrink:0;}
+.i-text{font-size:14px;color:#ccc;line-height:1.65;}
 </style>
 
 <div class="db">
   <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Cardiac Defibrillators Meta ads dashboard March 2026, two active campaigns, 109 leads, $1,092 total spend.</h2>
 
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:0.5px solid #1f1f1f;">
-    <div style="display:flex;align-items:center;gap:10px;">
+  <div class="header">
+    <div class="brand-block">
       <div class="pulse"></div>
-      <div>
-        <div class="htitle">Cardiac Defibrillators &nbsp;·&nbsp; Meta Ads</div>
-        <div class="hsub">2 active campaigns &nbsp;·&nbsp; Lead generation &nbsp;·&nbsp; March 1–31, 2026</div>
+      <div class="brand-text">
+        <div class="agency-tag">Broadcast Collective</div>
+        <div class="brand-name">Cardiac Defibrillators &nbsp;·&nbsp; Meta Ads</div>
+        <div class="brand-meta">2 active campaigns &nbsp;·&nbsp; Lead generation &nbsp;·&nbsp; March 1–31, 2026</div>
       </div>
     </div>
-    <div class="badge">March 2026 &nbsp;·&nbsp; 31 days</div>
+    <div class="header-badge">March 2026 &nbsp;·&nbsp; 31 days</div>
   </div>
 
   <div class="slabel">Overview</div>
@@ -77,7 +105,7 @@
     <div class="kpi red"><div class="kl">Blended CPL</div><div class="kv red">$10.02</div><div class="ks">Across both campaigns</div></div>
     <div class="kpi"><div class="kl">Total reach</div><div class="kv">29.5K</div><div class="ks">15,922 + 13,635</div></div>
   </div>
-  <div class="kpi4" style="margin-bottom:20px;">
+  <div class="kpi4" style="margin-bottom:24px;">
     <div class="kpi"><div class="kl">Total clicks</div><div class="kv">1,960</div><div class="ks">1,442 + 518</div></div>
     <div class="kpi"><div class="kl">Blended CTR</div><div class="kv">1.56%</div><div class="ks">Link click-through</div></div>
     <div class="kpi"><div class="kl">Blended CPC</div><div class="kv">$1.24</div><div class="ks">Cost per link click</div></div>
@@ -87,7 +115,7 @@
   <div class="slabel">Campaigns</div>
   <div class="camp-grid">
     <div class="camp-card">
-      <div class="camp-header" style="background:#da291c;">
+      <div class="camp-header" style="background:var(--red);">
         <div class="camp-hname">EasyPort</div>
         <div class="camp-badge">Top performer</div>
       </div>
@@ -108,14 +136,14 @@
       </div>
     </div>
     <div class="camp-card">
-      <div class="camp-header" style="background:#2a2a2a;">
+      <div class="camp-header" style="background:#232323;">
         <div class="camp-hname">Lookalike to CR...</div>
         <div class="camp-badge">Underperforming</div>
       </div>
       <div class="camp-body">
         <div class="camp-stats">
           <div class="cs"><div class="csv">37</div><div class="csl">Leads</div></div>
-          <div class="cs"><div class="csv" style="color:#da291c;">$12.72</div><div class="csl">CPL</div></div>
+          <div class="cs"><div class="csv" style="color:var(--red);">$12.72</div><div class="csl">CPL</div></div>
           <div class="cs"><div class="csv">$470</div><div class="csl">Spent</div></div>
         </div>
         <div class="cm-row"><div class="cm-k">Reach</div><div class="cm-v">13,635</div></div>
@@ -134,7 +162,7 @@
   <div class="ad-grid">
     <div class="ad-card">
       <div class="ad-img-area">
-        <img class="ad-img" src="/mnt/user-data/uploads/download-1.png" alt="Have you met FRED?" onerror="this.style.display='none';this.parentNode.style.background='#da291c';this.parentNode.innerHTML='<div style=\'padding:20px;text-align:center;\'><div style=\'font-size:22px;font-weight:500;color:#fff;\'>Have you met FRED?</div></div>'"/>
+        <img class="ad-img" src="/mnt/user-data/uploads/download-1.png" alt="Have you met FRED?" onerror="this.style.display='none';this.parentNode.style.background='#da291c';this.parentNode.innerHTML='<div style=\'padding:20px;text-align:center;\'><div style=\'font-size:22px;font-weight:600;color:#fff;font-family:Inter,sans-serif;\'>Have you met FRED?</div></div>'"/>
       </div>
       <div class="ad-body">
         <div class="ad-headline">Have you met FRED?</div>
@@ -147,7 +175,7 @@
     </div>
     <div class="ad-card">
       <div class="ad-img-area">
-        <img class="ad-img" src="/mnt/user-data/uploads/download-2.png" alt="Not all devices are built to last. Ours is." onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';this.parentNode.innerHTML='<div style=\'padding:20px;text-align:center;\'><div style=\'font-size:20px;font-weight:500;color:#fff;\'>Not all devices are built to last. Ours is.</div></div>'"/>
+        <img class="ad-img" src="/mnt/user-data/uploads/download-2.png" alt="Not all devices are built to last. Ours is." onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';this.parentNode.innerHTML='<div style=\'padding:20px;text-align:center;\'><div style=\'font-size:20px;font-weight:600;color:#fff;font-family:Inter,sans-serif;\'>Not all devices are built to last. Ours is.</div></div>'"/>
       </div>
       <div class="ad-body">
         <div class="ad-headline">Not all devices are built to last. Ours is.</div>
@@ -164,25 +192,25 @@
   <div class="two-row">
     <div class="panel">
       <div class="panel-title">Leads &amp; cost per lead</div>
-      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:66%;background:#da291c;"></div></div><div class="bv">72 leads</div></div>
+      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:66%;background:var(--red);"></div></div><div class="bv">72 leads</div></div>
       <div class="bar-row"><div class="bn">Lookalike</div><div class="bt"><div class="bf" style="width:34%;background:#555;"></div></div><div class="bv">37 leads</div></div>
       <div style="height:10px;"></div>
-      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:68%;background:#da291c;"></div></div><div class="bv">$8.63</div></div>
+      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:68%;background:var(--red);"></div></div><div class="bv">$8.63</div></div>
       <div class="bar-row"><div class="bn">Lookalike</div><div class="bt"><div class="bf" style="width:100%;background:#555;"></div></div><div class="bv">$12.72</div></div>
     </div>
     <div class="panel">
       <div class="panel-title">CTR &amp; CPC (link clicks)</div>
-      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:100%;background:#da291c;"></div></div><div class="bv">1.89%</div></div>
+      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:100%;background:var(--red);"></div></div><div class="bv">1.89%</div></div>
       <div class="bar-row"><div class="bn">Lookalike</div><div class="bt"><div class="bf" style="width:52%;background:#555;"></div></div><div class="bv">0.99%</div></div>
       <div style="height:10px;"></div>
-      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:50%;background:#da291c;"></div></div><div class="bv">$0.98</div></div>
+      <div class="bar-row"><div class="bn">EasyPort</div><div class="bt"><div class="bf" style="width:50%;background:var(--red);"></div></div><div class="bv">$0.98</div></div>
       <div class="bar-row"><div class="bn">Lookalike</div><div class="bt"><div class="bf" style="width:100%;background:#555;"></div></div><div class="bv">$1.96</div></div>
     </div>
   </div>
 
   <div class="slabel">Campaign metrics chart</div>
   <div class="legend">
-    <div class="leg-item"><div class="leg-sq" style="background:#da291c;"></div>EasyPort</div>
+    <div class="leg-item"><div class="leg-sq" style="background:var(--red);"></div>EasyPort</div>
     <div class="leg-item"><div class="leg-sq" style="background:#555;border:1px dashed #888;"></div>Lookalike</div>
   </div>
   <div class="chart-wrap">
@@ -192,11 +220,11 @@
   <div class="slabel">Insights</div>
   <div class="insight">
     <div class="insight-title">March 2026 key insights</div>
-    <div class="insight-row"><div class="i-dot"></div><div class="i-text">EasyPort delivers 2x the leads at 47% lower CPL - it deserves the majority of budget going into April.</div></div>
-    <div class="insight-row"><div class="i-dot"></div><div class="i-text">EasyPort CTR (1.89%) is nearly double the Lookalike CTR (0.99%) - the "FRED" creative resonates strongly with a broad audience.</div></div>
-    <div class="insight-row"><div class="i-dot"></div><div class="i-text">EasyPort frequency is at 2.12 after one month - watch closely in April. At 2.5+ you will likely see CPL begin to climb.</div></div>
-    <div class="insight-row"><div class="i-dot"></div><div class="i-text">The "Have you met FRED?" creative has strong social proof (429 reactions, 97 comments) - duplicate the post and keep the engagement rather than creating fresh ads.</div></div>
-    <div class="insight-row"><div class="i-dot"></div><div class="i-text">Lookalike audience quality needs review - the CPL gap and lower CTR suggest the source audience may not reflect your best buyer profile.</div></div>
+    <div class="insight-row"><div class="i-dot"></div><div class="i-text">EasyPort delivers 2x the leads at 47% lower CPL — it deserves the majority of budget going into April.</div></div>
+    <div class="insight-row"><div class="i-dot"></div><div class="i-text">EasyPort CTR (1.89%) is nearly double the Lookalike CTR (0.99%) — the "FRED" creative resonates strongly with a broad audience.</div></div>
+    <div class="insight-row"><div class="i-dot"></div><div class="i-text">EasyPort frequency is at 2.12 after one month — watch closely in April. At 2.5+ you will likely see CPL begin to climb.</div></div>
+    <div class="insight-row"><div class="i-dot"></div><div class="i-text">The "Have you met FRED?" creative has strong social proof (429 reactions, 97 comments) — duplicate the post and keep the engagement rather than creating fresh ads.</div></div>
+    <div class="insight-row"><div class="i-dot"></div><div class="i-text">Lookalike audience quality needs review — the CPL gap and lower CTR suggest the source audience may not reflect your best buyer profile.</div></div>
   </div>
 </div>
 
@@ -207,8 +235,8 @@ new Chart(document.getElementById('perfChart'),{
   data:{
     labels:['Leads','CPL ($)','CTR link (%)','CPC link ($)'],
     datasets:[
-      {label:'EasyPort',data:[72,8.63,1.89,0.98],backgroundColor:'#da291c',borderWidth:0},
-      {label:'Lookalike',data:[37,12.72,0.99,1.96],backgroundColor:'#555555',borderColor:'#888888',borderWidth:1}
+      {label:'EasyPort',data:[72,8.63,1.89,0.98],backgroundColor:'#da291c',borderWidth:0,borderRadius:4},
+      {label:'Lookalike',data:[37,12.72,0.99,1.96],backgroundColor:'#555555',borderColor:'#888888',borderWidth:1,borderRadius:4}
     ]
   },
   options:{
@@ -216,8 +244,8 @@ new Chart(document.getElementById('perfChart'),{
     maintainAspectRatio:false,
     plugins:{legend:{display:false}},
     scales:{
-      x:{ticks:{color:'#aaa',font:{size:13}},grid:{color:'#1f1f1f'}},
-      y:{ticks:{color:'#aaa',font:{size:13}},grid:{color:'#1f1f1f'}}
+      x:{ticks:{color:'#999',font:{size:13,family:'Inter, system-ui, sans-serif'}},grid:{color:'#1e1e1e'}},
+      y:{ticks:{color:'#999',font:{size:13,family:'Inter, system-ui, sans-serif'}},grid:{color:'#1e1e1e'}}
     }
   }
 });

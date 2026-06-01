@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardiac Defibrillators · Social Media Dashboard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #da291c;
+      --red-hover: #c0241a;
+      --red-light: #fdf2f1;
+      --black: #111111;
+      --gray-800: #333333;
+      --gray-600: #555555;
+      --gray-500: #777777;
+      --gray-400: #999999;
+      --gray-200: #d0d0d0;
+      --gray-100: #ebebeb;
+      --gray-50: #f6f6f6;
+      --white: #ffffff;
+      --green: #1e7e34;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--gray-50);
+      color: var(--black);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--white);
+      border-bottom: 3px solid var(--red);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 14px; }
+
+    .logo-mark {
+      width: 38px; height: 38px;
+      background: var(--red);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-mark svg { width: 22px; height: 22px; fill: white; }
+
+    .header-title { font-size: 16px; font-weight: 700; color: var(--black); letter-spacing: -0.01em; }
+    .header-sub { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+
+    .header-right { display: flex; align-items: center; gap: 10px; }
+
+    .period-pill {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: none; border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: var(--font);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+    .btn-dark { background: var(--black); color: var(--white); }
+    .btn-dark:hover { background: #2a2a2a; }
+    .btn-red { background: var(--red); color: var(--white); }
+    .btn-red:hover { background: var(--red-hover); }
+    .btn-ghost { background: var(--gray-50); color: var(--gray-600); border: 1px solid var(--gray-200); }
+    .btn-ghost:hover { background: var(--gray-100); }
+    .btn-green { background: var(--green); color: var(--white); }
+    .btn-green:hover { background: #186029; }
+
+    #saveBtn { display: none; }
+    body.edit-mode #saveBtn { display: inline-flex; }
+    body.edit-mode #editBtn { background: var(--red); color: var(--white); }
+
+    /* ── Layout ── */
+    .main { max-width: 1180px; margin: 0 auto; padding: 32px 40px 60px; }
+
+    .section { margin-bottom: 44px; }
+
+    .section-label {
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--gray-400);
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--gray-100);
+    }
+
+    /* ── Summary bar ── */
+    .summary-bar {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 14px;
+      padding: 18px 28px;
+      display: flex; align-items: center; gap: 0;
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+
+    .sb-item { flex: 1; padding: 0 24px; }
+    .sb-item:first-child { padding-left: 0; }
+    .sb-item:last-child { padding-right: 0; }
+
+    .sb-divider { width: 1px; height: 40px; background: var(--gray-100); flex-shrink: 0; }
+
+    .sb-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--gray-400); margin-bottom: 5px;
+    }
+
+    .sb-value { font-size: 15px; font-weight: 700; color: var(--black); }
+    .sb-value.red { color: var(--red); }
+    .sb-value.small { font-size: 13px; font-weight: 500; color: var(--gray-600); }
+
+    /* ── Platform header ── */
+    .platform-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .plat-icon {
+      width: 30px; height: 30px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .plat-icon svg { width: 16px; height: 16px; fill: white; }
+    .plat-fb { background: #1877F2; }
+    .plat-ig { background: linear-gradient(135deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888); }
+
+    .plat-name { font-size: 16px; font-weight: 700; color: var(--black); }
+    .plat-period { font-size: 12px; color: var(--gray-400); margin-left: 6px; }
+
+    /* ── KPI Grid ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .kpi {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 12px;
+      padding: 18px 20px;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+
+    .kpi:hover { box-shadow: 0 2px 14px rgba(0,0,0,0.07); }
+    .kpi.accent { border-color: var(--red); border-width: 1.5px; }
+
+    .kpi-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--gray-500); margin-bottom: 9px;
+    }
+
+    .kpi-val {
+      font-size: 30px; font-weight: 700; color: var(--black);
+      letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px;
+    }
+
+    .kpi-val.red { color: var(--red); }
+
+    .kpi-chg {
+      font-size: 12px; font-weight: 600;
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    .chg-up { color: var(--green); }
+    .chg-down { color: var(--red); }
+    .chg-neutral { color: var(--gray-500); }
+
+    /* ── Two / Three column ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .card-head {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .card-title { font-size: 13px; font-weight: 600; color: var(--black); }
+    .card-sub { font-size: 11px; color: var(--gray-400); }
+
+    .card-body { padding: 20px; }
+
+    /* ── Campaign cards ── */
+    .camp {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .camp:last-child { margin-bottom: 0; }
+
+    .camp-head {
+      padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .camp-head.c-red { background: var(--red); }
+    .camp-head.c-black { background: var(--black); }
+    .camp-head.c-dark { background: #444; }
+
+    .camp-name { font-size: 14px; font-weight: 600; color: white; }
+
+    .camp-badge {
+      font-size: 10px; font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.15);
+      border-radius: 5px; padding: 3px 9px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    .camp-metrics {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+    }
+
+    .camp-m {
+      padding: 14px 16px;
+      border-right: 1px solid var(--gray-100);
+    }
+
+    .camp-m:last-child { border-right: none; }
+
+    .cm-l {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--gray-400); margin-bottom: 5px;
+    }
+
+    .cm-v { font-size: 17px; font-weight: 700; color: var(--black); }
+    .cm-v.red { color: var(--red); }
+
+    /* ── Ads KPI row ── */
+    .ads-kpi {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    /* ── Bar charts ── */
+    .bar-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+    }
+
+    .bar-row:last-child { margin-bottom: 0; }
+
+    .bar-name {
+      font-size: 12px; color: var(--gray-700);
+      min-width: 130px; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .bar-track {
+      flex: 1; height: 8px; background: var(--gray-100);
+      border-radius: 4px; overflow: hidden;
+    }
+
+    .bar-fill { height: 100%; border-radius: 4px; background: var(--red); }
+    .bar-fill.f-black { background: var(--black); }
+    .bar-fill.f-gray { background: #aaa; }
+
+    .bar-val {
+      font-size: 12px; font-weight: 600; color: var(--gray-700);
+      min-width: 44px; text-align: right;
+    }
+
+    /* ── Gender ── */
+    .gender-row { display: flex; gap: 12px; margin-bottom: 4px; }
+
+    .gender-card {
+      flex: 1; background: var(--gray-50); border-radius: 10px;
+      padding: 16px; text-align: center;
+    }
+
+    .g-val { font-size: 28px; font-weight: 700; color: var(--black); }
+    .g-bar { height: 4px; border-radius: 2px; margin: 8px auto 0; }
+    .g-bar.g-red { background: var(--red); }
+    .g-bar.g-black { background: var(--black); }
+    .g-label { font-size: 12px; color: var(--gray-500); margin-top: 5px; }
+
+    /* ── MoM Table ── */
+    .mom-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+    .mom-table th {
+      text-align: left; padding: 10px 16px;
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      color: var(--gray-500);
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .mom-table td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--gray-100);
+      color: var(--gray-600);
+    }
+
+    .mom-table tr:last-child td { border-bottom: none; }
+    .mom-table tr:hover td { background: #fafafa; }
+    .mom-table td:first-child { font-weight: 600; color: var(--black); }
+    .mom-table td.current { font-weight: 600; color: var(--black); }
+    .mom-table td.empty { color: var(--gray-200); text-align: center; }
+
+    /* ── Notes ── */
+    .notes-wrap {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .notes-head {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .notes-pulse {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--red);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    .notes-title { font-size: 13px; font-weight: 600; color: var(--black); }
+    .notes-hint { margin-left: auto; font-size: 11px; color: var(--gray-400); }
+
+    .notes-body { padding: 20px; }
+
+    .note-row {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .note-row:first-child { padding-top: 0; }
+    .note-row:last-child { padding-bottom: 0; border-bottom: none; }
+
+    .note-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--red); margin-top: 7px; flex-shrink: 0;
+    }
+
+    .note-tag {
+      display: inline-block;
+      background: var(--red-light); color: var(--red);
+      border-radius: 4px; padding: 1px 7px;
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-right: 7px;
+    }
+
+    .note-text { font-size: 14px; color: var(--gray-600); line-height: 1.65; }
+
+    /* ── Edit mode ── */
+    .edit-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45); z-index: 300;
+      align-items: center; justify-content: center;
+    }
+
+    .edit-overlay.show { display: flex; }
+
+    .edit-modal {
+      background: var(--white);
+      border-radius: 16px; padding: 32px;
+      width: 400px; max-width: 90vw;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.16);
+    }
+
+    .modal-title { font-size: 20px; font-weight: 700; color: var(--black); margin-bottom: 6px; }
+    .modal-sub { font-size: 13px; color: var(--gray-500); margin-bottom: 24px; line-height: 1.5; }
+
+    .modal-input {
+      width: 100%; border: 1.5px solid var(--gray-200);
+      border-radius: 9px; padding: 12px 14px;
+      font-size: 15px; font-family: var(--font);
+      color: var(--black); outline: none;
+      margin-bottom: 8px;
+      transition: border-color 0.15s;
+    }
+
+    .modal-input:focus { border-color: var(--red); }
+    .modal-input.err { border-color: var(--red); background: var(--red-light); }
+
+    .modal-err { font-size: 12px; color: var(--red); margin-bottom: 16px; display: none; }
+    .modal-err.show { display: block; }
+
+    .modal-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .modal-actions .btn { flex: 1; justify-content: center; padding: 12px; }
+
+    body.edit-mode [data-ed] {
+      outline: 2px dashed rgba(218,41,28,0.25);
+      border-radius: 4px; cursor: text;
+    }
+
+    body.edit-mode [data-ed]:hover {
+      outline-color: var(--red); background: var(--red-light);
+    }
+
+    body.edit-mode [data-ed]:focus {
+      outline: 2px solid var(--red); background: var(--red-light);
+    }
+
+    .notes-textarea {
+      width: 100%; min-height: 180px;
+      border: 1.5px solid var(--gray-200); border-radius: 9px;
+      padding: 14px 16px;
+      font-size: 14px; font-family: var(--font);
+      color: var(--gray-600); line-height: 1.65;
+      resize: vertical; outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .notes-textarea:focus { border-color: var(--red); }
+
+    .notes-hint-text {
+      font-size: 11px; color: var(--gray-400); margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--white);
+      border-top: 1px solid var(--gray-100);
+      padding: 18px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; color: var(--gray-400);
+    }
+
+    .footer-logo { font-weight: 700; color: var(--black); }
+
+    /* ── Chart ── */
+    .chart-wrap { position: relative; height: 220px; margin-top: 8px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .main { padding: 20px; }
+      .header { padding: 14px 20px; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .camp-metrics { grid-template-columns: repeat(3, 1fr); }
+      .two-col { grid-template-columns: 1fr; }
+      .ads-kpi { grid-template-columns: repeat(2, 1fr); }
+      .summary-bar { flex-wrap: wrap; gap: 16px; padding: 16px 20px; }
+      .sb-divider { display: none; }
+      .sb-item { padding: 0; flex-basis: 45%; }
+    }
+
+    @media (max-width: 600px) {
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+      .camp-metrics { grid-template-columns: repeat(2, 1fr); }
+      .ads-kpi { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Password modal -->
+  <div class="edit-overlay" id="editOverlay">
+    <div class="edit-modal">
+      <div class="modal-title">Edit Dashboard</div>
+      <div class="modal-sub">Enter the password to unlock editing. All changes are saved to your browser.</div>
+      <input type="password" id="pwInput" class="modal-input" placeholder="Password" autocomplete="off" />
+      <div class="modal-err" id="pwErr">Incorrect password — try again.</div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-red" onclick="checkPw()">Unlock</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+      </div>
+      <div>
+        <div class="header-title">Cardiac Defibrillators</div>
+        <div class="header-sub">Instagram &amp; Facebook · Monthly Social Report</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="period-pill" data-ed id="h-period">May 2026</div>
+      <button class="btn btn-green" id="saveBtn" onclick="saveEdits()">
+        <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Save
+      </button>
+      <button class="btn btn-dark" id="editBtn" onclick="handleEditBtn()">
+        <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        Edit
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Summary bar -->
+    <div class="summary-bar">
+      <div class="sb-item">
+        <div class="sb-label">Reporting Period</div>
+        <div class="sb-value" data-ed id="sb-period">May 1–31, 2026</div>
+      </div>
+      <div class="sb-divider"></div>
+      <div class="sb-item">
+        <div class="sb-label">Platforms</div>
+        <div class="sb-value small">Facebook · Instagram</div>
+      </div>
+      <div class="sb-divider"></div>
+      <div class="sb-item">
+        <div class="sb-label">Active Campaigns</div>
+        <div class="sb-value small" data-ed id="sb-camps">3 Meta Ads campaigns</div>
+      </div>
+      <div class="sb-divider"></div>
+      <div class="sb-item">
+        <div class="sb-label">Total Ad Spend</div>
+        <div class="sb-value red" data-ed id="sb-spend">$1,262.95</div>
+      </div>
+      <div class="sb-divider"></div>
+      <div class="sb-item">
+        <div class="sb-label">Total Leads (Paid)</div>
+        <div class="sb-value" data-ed id="sb-leads">133 leads</div>
+      </div>
+      <div class="sb-divider"></div>
+      <div class="sb-item" style="text-align:right;">
+        <div class="sb-label">Last Updated</div>
+        <div class="sb-value small" data-ed id="sb-updated">1 June 2026</div>
+      </div>
+    </div>
+
+    <!-- ── Facebook ── -->
+    <div class="section">
+      <div class="section-label">
+        <div class="plat-icon plat-fb">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+        Facebook Organic
+        <span style="font-size:11px;color:var(--gray-400);font-weight:400;text-transform:none;letter-spacing:0;" data-ed id="fb-period">May 1–31, 2026</span>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-label">Views</div>
+          <div class="kpi-val" data-ed id="fb-views">69.6K</div>
+          <div class="kpi-chg chg-up">↑ <span data-ed id="fb-views-chg">2.7%</span> vs prior period</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Viewers</div>
+          <div class="kpi-val" data-ed id="fb-viewers">23.6K</div>
+          <div class="kpi-chg chg-down">↓ <span data-ed id="fb-viewers-chg">13.7%</span> vs prior period</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Content Interactions</div>
+          <div class="kpi-val" data-ed id="fb-interactions">78</div>
+          <div class="kpi-chg chg-down">↓ <span data-ed id="fb-int-chg">2.5%</span> vs prior period</div>
+        </div>
+        <div class="kpi accent">
+          <div class="kpi-label">Link Clicks</div>
+          <div class="kpi-val red" data-ed id="fb-clicks">1,100</div>
+          <div class="kpi-chg chg-up">↑ <span data-ed id="fb-clicks-chg">11.2%</span> vs prior period</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Instagram ── -->
+    <div class="section">
+      <div class="section-label">
+        <div class="plat-icon plat-ig">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+        Instagram Organic
+        <span style="font-size:11px;color:var(--gray-400);font-weight:400;text-transform:none;letter-spacing:0;" data-ed id="ig-period">May 1–31, 2026</span>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-label">Views</div>
+          <div class="kpi-val" data-ed id="ig-views">9,200</div>
+          <div class="kpi-chg chg-down">↓ <span data-ed id="ig-views-chg">4.2%</span> vs prior period</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Reach</div>
+          <div class="kpi-val" data-ed id="ig-reach">3,700</div>
+          <div class="kpi-chg chg-down">↓ <span data-ed id="ig-reach-chg">18.2%</span> vs prior period</div>
+        </div>
+        <div class="kpi accent">
+          <div class="kpi-label">Content Interactions</div>
+          <div class="kpi-val red" data-ed id="ig-interactions">81</div>
+          <div class="kpi-chg chg-up">↑ <span data-ed id="ig-int-chg">350%</span> vs prior period</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Link Clicks</div>
+          <div class="kpi-val" data-ed id="ig-clicks">121</div>
+          <div class="kpi-chg chg-up">↑ <span data-ed id="ig-clicks-chg">33%</span> vs prior period</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Meta Ads ── -->
+    <div class="section">
+      <div class="section-label">Meta Ads Campaigns</div>
+
+      <div class="ads-kpi">
+        <div class="kpi">
+          <div class="kpi-label">Total Ad Spend</div>
+          <div class="kpi-val red" data-ed id="ads-spend">$1,262.95</div>
+          <div class="kpi-chg chg-neutral">Across 3 campaigns</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Lead Form Leads</div>
+          <div class="kpi-val" data-ed id="ads-leads">133</div>
+          <div class="kpi-chg chg-neutral">FRED + EasyPort</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Blended CPL</div>
+          <div class="kpi-val" data-ed id="ads-cpl">$7.51</div>
+          <div class="kpi-chg chg-neutral">Lead campaigns only</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Combined Reach</div>
+          <div class="kpi-val" data-ed id="ads-reach">26.4K</div>
+          <div class="kpi-chg chg-neutral">Sum across campaigns</div>
+        </div>
+      </div>
+
+      <!-- Campaign 1 -->
+      <div class="camp">
+        <div class="camp-head c-red">
+          <div class="camp-name" data-ed id="c1-name">FRED PA-1 Bundle — Leads Campaign</div>
+          <div class="camp-badge">Lowest CPL</div>
+        </div>
+        <div class="camp-metrics">
+          <div class="camp-m">
+            <div class="cm-l">Leads</div>
+            <div class="cm-v" data-ed id="c1-leads">62</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Reach</div>
+            <div class="cm-v" data-ed id="c1-reach">9,528</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Frequency</div>
+            <div class="cm-v" data-ed id="c1-freq">1.88</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">CPL</div>
+            <div class="cm-v red" data-ed id="c1-cpl">$6.12</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Daily Budget</div>
+            <div class="cm-v" data-ed id="c1-budget">$25/day</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Amount Spent</div>
+            <div class="cm-v" data-ed id="c1-spent">$379.48</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campaign 2 -->
+      <div class="camp">
+        <div class="camp-head c-black">
+          <div class="camp-name" data-ed id="c2-name">Cardiac Defibrillators — EasyPort</div>
+          <div class="camp-badge">Active</div>
+        </div>
+        <div class="camp-metrics">
+          <div class="camp-m">
+            <div class="cm-l">Leads</div>
+            <div class="cm-v" data-ed id="c2-leads">71</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Reach</div>
+            <div class="cm-v" data-ed id="c2-reach">10,780</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Frequency</div>
+            <div class="cm-v" data-ed id="c2-freq">2.77</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">CPL</div>
+            <div class="cm-v" data-ed id="c2-cpl">$8.72</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Daily Budget</div>
+            <div class="cm-v" data-ed id="c2-budget">$20/day</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Amount Spent</div>
+            <div class="cm-v" data-ed id="c2-spent">$619.47</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campaign 3 -->
+      <div class="camp">
+        <div class="camp-head c-dark">
+          <div class="camp-name" data-ed id="c3-name">Cardiac Defibrillators — EOFY 2026</div>
+          <div class="camp-badge">Website Purchase</div>
+        </div>
+        <div class="camp-metrics">
+          <div class="camp-m">
+            <div class="cm-l">Purchases</div>
+            <div class="cm-v" data-ed id="c3-results">—</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Reach</div>
+            <div class="cm-v" data-ed id="c3-reach">6,084</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Frequency</div>
+            <div class="cm-v" data-ed id="c3-freq">2.70</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Cost/Purchase</div>
+            <div class="cm-v" data-ed id="c3-cpp">—</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Daily Budget</div>
+            <div class="cm-v" data-ed id="c3-budget">$40/day</div>
+          </div>
+          <div class="camp-m">
+            <div class="cm-l">Amount Spent</div>
+            <div class="cm-v" data-ed id="c3-spent">$264.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Audience ── -->
+    <div class="section">
+      <div class="section-label">Audience</div>
+
+      <div class="two-col" style="margin-bottom:16px;">
+
+        <!-- Gender -->
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Gender Split</div>
+            <div class="card-sub">All followers</div>
+          </div>
+          <div class="card-body">
+            <div class="gender-row">
+              <div class="gender-card">
+                <div class="g-val" data-ed id="aud-women">50.2%</div>
+                <div class="g-label">Women</div>
+                <div class="g-bar g-red" style="width:50.2%;max-width:100%;"></div>
+              </div>
+              <div class="gender-card">
+                <div class="g-val" data-ed id="aud-men">49.8%</div>
+                <div class="g-label">Men</div>
+                <div class="g-bar g-black" style="width:49.8%;max-width:100%;"></div>
+              </div>
+            </div>
+            <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:10px;">Near-even gender split</p>
+          </div>
+        </div>
+
+        <!-- Top Countries -->
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Top Countries</div>
+            <div class="card-sub">By audience share</div>
+          </div>
+          <div class="card-body">
+            <div class="bar-row"><div class="bar-name">Australia</div><div class="bar-track"><div class="bar-fill" style="width:83%;"></div></div><div class="bar-val">83%</div></div>
+            <div class="bar-row"><div class="bar-name">United States</div><div class="bar-track"><div class="bar-fill f-black" style="width:4.3%;"></div></div><div class="bar-val">3.6%</div></div>
+            <div class="bar-row"><div class="bar-name">United Kingdom</div><div class="bar-track"><div class="bar-fill f-black" style="width:1.9%;"></div></div><div class="bar-val">1.6%</div></div>
+            <div class="bar-row"><div class="bar-name">China</div><div class="bar-track"><div class="bar-fill f-gray" style="width:1.6%;"></div></div><div class="bar-val">1.3%</div></div>
+            <div class="bar-row"><div class="bar-name">Canada</div><div class="bar-track"><div class="bar-fill f-gray" style="width:1.3%;"></div></div><div class="bar-val">1.1%</div></div>
+            <div class="bar-row"><div class="bar-name">New Zealand</div><div class="bar-track"><div class="bar-fill f-gray" style="width:1.1%;"></div></div><div class="bar-val">0.9%</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Top Cities -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Top Cities</div>
+          <div class="card-sub">Primarily Australian audience</div>
+        </div>
+        <div class="card-body">
+          <div class="two-col" style="gap:40px;">
+            <div>
+              <div class="bar-row"><div class="bar-name">Melbourne, VIC</div><div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div><div class="bar-val">23.2%</div></div>
+              <div class="bar-row"><div class="bar-name">Sydney, NSW</div><div class="bar-track"><div class="bar-fill f-black" style="width:38.4%;"></div></div><div class="bar-val">8.9%</div></div>
+              <div class="bar-row"><div class="bar-name">Adelaide, SA</div><div class="bar-track"><div class="bar-fill f-black" style="width:19.4%;"></div></div><div class="bar-val">4.5%</div></div>
+              <div class="bar-row"><div class="bar-name">Perth, WA</div><div class="bar-track"><div class="bar-fill f-black" style="width:17.2%;"></div></div><div class="bar-val">4.0%</div></div>
+              <div class="bar-row"><div class="bar-name">Brisbane, QLD</div><div class="bar-track"><div class="bar-fill f-gray" style="width:10.8%;"></div></div><div class="bar-val">2.5%</div></div>
+            </div>
+            <div>
+              <div class="bar-row"><div class="bar-name">Geelong, VIC</div><div class="bar-track"><div class="bar-fill f-gray" style="width:9.5%;"></div></div><div class="bar-val">2.2%</div></div>
+              <div class="bar-row"><div class="bar-name">Gold Coast, QLD</div><div class="bar-track"><div class="bar-fill f-gray" style="width:6.9%;"></div></div><div class="bar-val">1.6%</div></div>
+              <div class="bar-row"><div class="bar-name">Canberra, ACT</div><div class="bar-track"><div class="bar-fill f-gray" style="width:5.6%;"></div></div><div class="bar-val">1.3%</div></div>
+              <div class="bar-row"><div class="bar-name">Sunshine Coast, QLD</div><div class="bar-track"><div class="bar-fill f-gray" style="width:5.6%;"></div></div><div class="bar-val">1.3%</div></div>
+              <div class="bar-row"><div class="bar-name">Ipswich, QLD</div><div class="bar-track"><div class="bar-fill f-gray" style="width:4.7%;"></div></div><div class="bar-val">1.1%</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Month-on-Month ── -->
+    <div class="section">
+      <div class="section-label">Month-on-Month Tracking</div>
+
+      <!-- Facebook MoM -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-head">
+          <div class="card-title">Facebook Organic</div>
+          <div class="card-sub">Updated each month</div>
+        </div>
+        <table class="mom-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>May 2026</th>
+              <th>Jun 2026</th>
+              <th>Jul 2026</th>
+              <th>Aug 2026</th>
+              <th>Sep 2026</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Views</td><td class="current">69.6K</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Viewers</td><td class="current">23.6K</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Content Interactions</td><td class="current">78</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Link Clicks</td><td class="current">1,100</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Instagram MoM -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-head">
+          <div class="card-title">Instagram Organic</div>
+          <div class="card-sub">Updated each month</div>
+        </div>
+        <table class="mom-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>May 2026</th>
+              <th>Jun 2026</th>
+              <th>Jul 2026</th>
+              <th>Aug 2026</th>
+              <th>Sep 2026</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Views</td><td class="current">9,200</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Reach</td><td class="current">3,700</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Content Interactions</td><td class="current">81</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Link Clicks</td><td class="current">121</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Ads MoM -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Meta Ads</div>
+          <div class="card-sub">Updated each month</div>
+        </div>
+        <table class="mom-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>May 2026</th>
+              <th>Jun 2026</th>
+              <th>Jul 2026</th>
+              <th>Aug 2026</th>
+              <th>Sep 2026</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Total Spend</td><td class="current">$1,262.95</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Total Leads</td><td class="current">133</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Blended CPL</td><td class="current">$7.51</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Combined Reach</td><td class="current">26,392</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── Notes & Recommendations ── -->
+    <div class="section">
+      <div class="section-label">Notes &amp; Recommendations</div>
+
+      <div class="notes-wrap">
+        <div class="notes-head">
+          <div class="notes-pulse"></div>
+          <div class="notes-title">May 2026 — Analysis &amp; Upcoming Actions</div>
+          <div class="notes-hint">Click Edit to update</div>
+        </div>
+        <div class="notes-body" id="notesDisplay">
+          <div class="note-row">
+            <div class="note-dot"></div>
+            <div class="note-text"><span class="note-tag">Highlight</span>The FRED PA-1 Bundle leads campaign is the standout performer this month at $6.12 CPL — well below the EasyPort campaign ($8.72). Consider increasing the FRED daily budget from $25 to $35–$40 to capitalise on this efficiency before the EOFY period ends.</div>
+          </div>
+          <div class="note-row">
+            <div class="note-dot"></div>
+            <div class="note-text"><span class="note-tag">Watch</span>EasyPort campaign frequency has reached 2.77 — above the 2.5 warning threshold. Audience fatigue is likely building. Refresh creative or expand targeting in June to prevent CPL from climbing.</div>
+          </div>
+          <div class="note-row">
+            <div class="note-dot"></div>
+            <div class="note-text"><span class="note-tag">Instagram</span>Content interactions jumped 350% month-on-month — a significant spike. Identify which posts drove this and double down on that content format. Link clicks are also up 33%, suggesting improving intent.</div>
+          </div>
+          <div class="note-row">
+            <div class="note-dot"></div>
+            <div class="note-text"><span class="note-tag">Facebook</span>Link clicks on Facebook are up 11.2% despite a drop in unique viewers (−13.7%). This points to a more engaged, returning audience rather than new reach — a healthy signal for the brand.</div>
+          </div>
+          <div class="note-row">
+            <div class="note-dot"></div>
+            <div class="note-text"><span class="note-tag">Audience</span>Melbourne (23.2%) dominates the audience with Sydney second at 8.9%. Victoria and NSW combined account for ~32% of reach. Geo-targeted content or city-specific ad sets could improve relevance and conversion rates.</div>
+          </div>
+          <div class="note-row">
+            <div class="note-dot"></div>
+            <div class="note-text"><span class="note-tag">EOFY</span>The EOFY 2026 campaign is tracking spend ($264 at $40/day) but purchase conversions are not yet confirmed. Review conversion data before end of June and reallocate budget to FRED leads campaign if ROAS is not meeting targets.</div>
+          </div>
+        </div>
+        <div id="notesEdit" style="display:none;padding:20px 20px 16px;">
+          <textarea class="notes-textarea" id="notesTA" placeholder="Enter notes, one per line. Separate with blank lines for multiple bullet points."></textarea>
+          <div class="notes-hint-text">Separate each note with a blank line. You can include tags like [Highlight], [Watch], [EOFY] at the start of a note.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div><span class="footer-logo">Cardiac Defibrillators</span> &nbsp;·&nbsp; Social Media Dashboard</div>
+    <div>Broadcast Collective &nbsp;·&nbsp; howdy@broadcollective.com.au</div>
+    <div>Updated monthly</div>
+  </footer>
+
+  <script>
+    const PASS = 'cardiac2026';
+    let editing = false;
+
+    // ── Password modal ──
+    function handleEditBtn() {
+      if (editing) { exitEdit(); } else { openModal(); }
+    }
+
+    function openModal() {
+      document.getElementById('editOverlay').classList.add('show');
+      setTimeout(() => document.getElementById('pwInput').focus(), 80);
+    }
+
+    function closeModal() {
+      document.getElementById('editOverlay').classList.remove('show');
+      const inp = document.getElementById('pwInput');
+      inp.value = '';
+      inp.classList.remove('err');
+      document.getElementById('pwErr').classList.remove('show');
+    }
+
+    function checkPw() {
+      const val = document.getElementById('pwInput').value;
+      if (val === PASS) {
+        closeModal();
+        enterEdit();
+      } else {
+        const inp = document.getElementById('pwInput');
+        inp.classList.add('err');
+        document.getElementById('pwErr').classList.add('show');
+        inp.value = '';
+        inp.focus();
+      }
+    }
+
+    document.getElementById('pwInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') checkPw();
+      if (e.key === 'Escape') closeModal();
+      document.getElementById('pwInput').classList.remove('err');
+      document.getElementById('pwErr').classList.remove('show');
+    });
+
+    document.getElementById('editOverlay').addEventListener('click', e => {
+      if (e.target.id === 'editOverlay') closeModal();
+    });
+
+    // ── Edit mode ──
+    function enterEdit() {
+      editing = true;
+      document.body.classList.add('edit-mode');
+      const btn = document.getElementById('editBtn');
+      btn.innerHTML = btn.innerHTML.replace('Edit', 'Exit Edit');
+
+      document.querySelectorAll('[data-ed]').forEach(el => {
+        el.contentEditable = 'true';
+      });
+
+      // Populate notes textarea
+      const display = document.getElementById('notesDisplay');
+      const editArea = document.getElementById('notesEdit');
+      const ta = document.getElementById('notesTA');
+      const saved = localStorage.getItem('cd_notes_raw');
+      if (saved) {
+        ta.value = saved;
+      } else {
+        const lines = Array.from(display.querySelectorAll('.note-text')).map(n => {
+          const tag = n.querySelector('.note-tag');
+          const tagText = tag ? '[' + tag.textContent + '] ' : '';
+          const bodyText = tag ? n.textContent.replace(tag.textContent, '').trim() : n.textContent.trim();
+          return tagText + bodyText;
+        });
+        ta.value = lines.join('\n\n');
+      }
+      display.style.display = 'none';
+      editArea.style.display = 'block';
+    }
+
+    function exitEdit() {
+      editing = false;
+      document.body.classList.remove('edit-mode');
+      const btn = document.getElementById('editBtn');
+      btn.innerHTML = btn.innerHTML.replace('Exit Edit', 'Edit');
+
+      document.querySelectorAll('[data-ed]').forEach(el => {
+        el.contentEditable = 'false';
+      });
+
+      document.getElementById('notesDisplay').style.display = 'block';
+      document.getElementById('notesEdit').style.display = 'none';
+    }
+
+    function saveEdits() {
+      // Save editable fields
+      document.querySelectorAll('[data-ed]').forEach(el => {
+        localStorage.setItem('cd_' + el.id, el.textContent.trim());
+      });
+
+      // Save + render notes
+      const ta = document.getElementById('notesTA');
+      const raw = ta.value.trim();
+      localStorage.setItem('cd_notes_raw', raw);
+      renderNotes(raw);
+
+      exitEdit();
+    }
+
+    function renderNotes(raw) {
+      if (!raw) return;
+      const paras = raw.split(/\n\n+/).filter(p => p.trim());
+      const display = document.getElementById('notesDisplay');
+      display.innerHTML = paras.map(p => {
+        const text = p.trim();
+        const tagMatch = text.match(/^\[([^\]]+)\]\s*/);
+        let tag = '';
+        let body = text;
+        if (tagMatch) {
+          tag = `<span class="note-tag">${tagMatch[1]}</span>`;
+          body = text.slice(tagMatch[0].length);
+        }
+        return `<div class="note-row"><div class="note-dot"></div><div class="note-text">${tag}${body}</div></div>`;
+      }).join('');
+    }
+
+    // ── Load saved data ──
+    function loadSaved() {
+      document.querySelectorAll('[data-ed]').forEach(el => {
+        const saved = localStorage.getItem('cd_' + el.id);
+        if (saved) el.textContent = saved;
+      });
+
+      const savedNotes = localStorage.getItem('cd_notes_raw');
+      if (savedNotes) renderNotes(savedNotes);
+    }
+
+    loadSaved();
+  </script>
+</body>
+</html>

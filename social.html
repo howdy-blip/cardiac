@@ -501,12 +501,35 @@
   <div class="edit-overlay" id="editOverlay">
     <div class="edit-modal">
       <div class="modal-title">Edit Dashboard</div>
-      <div class="modal-sub">Enter the password to unlock editing. All changes are saved to your browser.</div>
+      <div class="modal-sub">Enter the password to unlock editing.</div>
       <input type="password" id="pwInput" class="modal-input" placeholder="Password" autocomplete="off" />
       <div class="modal-err" id="pwErr">Incorrect password — try again.</div>
       <div class="modal-actions">
         <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
         <button class="btn btn-red" onclick="checkPw()">Unlock</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Token modal -->
+  <div class="edit-overlay" id="tokenOverlay">
+    <div class="edit-modal">
+      <div class="modal-title">GitHub Token</div>
+      <div class="modal-sub">Needed to push changes live. Stored in this browser only — never sent anywhere except the GitHub API.</div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-100);border-radius:9px;padding:13px 15px;font-size:12px;color:var(--gray-600);line-height:1.7;margin-bottom:18px;">
+        <strong style="color:var(--black);">How to create a token:</strong><br>
+        GitHub.com → Settings → Developer settings → Personal access tokens → Fine-grained tokens → New token<br>
+        → Repository: <strong>howdy-blip/cardiac</strong><br>
+        → Permissions: <strong>Contents → Read &amp; write</strong>
+      </div>
+      <input type="text" id="tokenInput" class="modal-input" placeholder="github_pat_…" autocomplete="off" spellcheck="false" />
+      <div class="modal-err" id="tokenErr">Please enter a token.</div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeTokenModal()">Cancel</button>
+        <button class="btn btn-dark" id="tokenConfirmBtn" onclick="confirmToken()">Save Token</button>
+      </div>
+      <div style="text-align:center;margin-top:14px;">
+        <button onclick="clearToken()" style="background:none;border:none;font-size:11px;color:var(--gray-400);cursor:pointer;text-decoration:underline;">Clear saved token</button>
       </div>
     </div>
   </div>
@@ -524,6 +547,9 @@
     </div>
     <div class="header-right">
       <div class="period-pill" data-ed id="h-period">May 2026</div>
+      <button class="btn btn-ghost" onclick="openTokenModal()" title="Manage GitHub token" style="padding:8px 11px;">
+        <svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:currentColor;display:block;"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+      </button>
       <button class="btn btn-green" id="saveBtn" onclick="saveEdits()">
         <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
         Save
@@ -978,7 +1004,50 @@
 
   <script>
     const PASS = 'cardiac2026';
+    const REPO = 'howdy-blip/cardiac';
+    const BRANCH = 'main';
     let editing = false;
+    let pendingPush = false;
+
+    // ── Token management ──
+    const getToken = () => localStorage.getItem('gh_token') || '';
+    const setToken = t => localStorage.setItem('gh_token', t.trim());
+
+    function openTokenModal() {
+      const inp = document.getElementById('tokenInput');
+      inp.value = getToken();
+      document.getElementById('tokenErr').classList.remove('show');
+      document.getElementById('tokenOverlay').classList.add('show');
+      setTimeout(() => inp.focus(), 80);
+    }
+
+    function closeTokenModal() {
+      document.getElementById('tokenOverlay').classList.remove('show');
+      pendingPush = false;
+    }
+
+    function confirmToken() {
+      const val = document.getElementById('tokenInput').value.trim();
+      if (!val) { document.getElementById('tokenErr').classList.add('show'); return; }
+      setToken(val);
+      closeTokenModal();
+      if (pendingPush) { pendingPush = false; doPush(); }
+    }
+
+    function clearToken() {
+      localStorage.removeItem('gh_token');
+      document.getElementById('tokenInput').value = '';
+    }
+
+    document.getElementById('tokenInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') confirmToken();
+      if (e.key === 'Escape') closeTokenModal();
+      document.getElementById('tokenErr').classList.remove('show');
+    });
+
+    document.getElementById('tokenOverlay').addEventListener('click', e => {
+      if (e.target.id === 'tokenOverlay') closeTokenModal();
+    });
 
     // ── Password modal ──
     function handleEditBtn() {
@@ -1000,15 +1069,12 @@
 
     function checkPw() {
       const val = document.getElementById('pwInput').value;
-      if (val === PASS) {
-        closeModal();
-        enterEdit();
-      } else {
+      if (val === PASS) { closeModal(); enterEdit(); }
+      else {
         const inp = document.getElementById('pwInput');
         inp.classList.add('err');
         document.getElementById('pwErr').classList.add('show');
-        inp.value = '';
-        inp.focus();
+        inp.value = ''; inp.focus();
       }
     }
 
@@ -1027,14 +1093,11 @@
     function enterEdit() {
       editing = true;
       document.body.classList.add('edit-mode');
-      const btn = document.getElementById('editBtn');
-      btn.innerHTML = btn.innerHTML.replace('Edit', 'Exit Edit');
+      document.getElementById('editBtn').innerHTML =
+        document.getElementById('editBtn').innerHTML.replace('Edit', 'Exit Edit');
 
-      document.querySelectorAll('[data-ed]').forEach(el => {
-        el.contentEditable = 'true';
-      });
+      document.querySelectorAll('[data-ed]').forEach(el => { el.contentEditable = 'true'; });
 
-      // Populate notes textarea
       const display = document.getElementById('notesDisplay');
       const editArea = document.getElementById('notesEdit');
       const ta = document.getElementById('notesTA');
@@ -1057,61 +1120,163 @@
     function exitEdit() {
       editing = false;
       document.body.classList.remove('edit-mode');
-      const btn = document.getElementById('editBtn');
-      btn.innerHTML = btn.innerHTML.replace('Exit Edit', 'Edit');
-
-      document.querySelectorAll('[data-ed]').forEach(el => {
-        el.contentEditable = 'false';
-      });
-
+      document.getElementById('editBtn').innerHTML =
+        document.getElementById('editBtn').innerHTML.replace('Exit Edit', 'Edit');
+      document.querySelectorAll('[data-ed]').forEach(el => { el.contentEditable = 'false'; });
       document.getElementById('notesDisplay').style.display = 'block';
       document.getElementById('notesEdit').style.display = 'none';
+      setSaveState('idle');
+    }
+
+    // ── GitHub push ──
+    function toBase64(str) {
+      const bytes = new TextEncoder().encode(str);
+      let bin = '';
+      bytes.forEach(b => bin += String.fromCharCode(b));
+      return btoa(bin);
+    }
+
+    function collectData() {
+      const fields = {};
+      document.querySelectorAll('[data-ed]').forEach(el => {
+        if (el.id) fields[el.id] = el.textContent.trim();
+      });
+      const ta = document.getElementById('notesTA');
+      const notes = ta ? ta.value.trim() : (localStorage.getItem('cd_notes_raw') || '');
+      return { fields, notes, updated: new Date().toISOString() };
+    }
+
+    async function pushToGitHub(token, data) {
+      const url = `https://api.github.com/repos/${REPO}/contents/data.json`;
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github+json'
+      };
+
+      let sha = null;
+      const getR = await fetch(url, { headers });
+      if (getR.ok) {
+        sha = (await getR.json()).sha;
+      } else if (getR.status === 401) {
+        throw new Error('invalid_token');
+      } else if (getR.status !== 404) {
+        throw new Error('GitHub error ' + getR.status);
+      }
+
+      const body = {
+        message: 'Update dashboard data',
+        content: toBase64(JSON.stringify(data, null, 2)),
+        branch: BRANCH,
+        ...(sha ? { sha } : {})
+      };
+
+      const putR = await fetch(url, {
+        method: 'PUT',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      if (!putR.ok) {
+        if (putR.status === 401) throw new Error('invalid_token');
+        const err = await putR.json().catch(() => ({}));
+        throw new Error(err.message || 'Save failed (' + putR.status + ')');
+      }
+    }
+
+    function setSaveState(state) {
+      const btn = document.getElementById('saveBtn');
+      const cfg = {
+        idle:    ['Save',           'btn btn-green', false],
+        saving:  ['Saving…',   'btn btn-ghost', true ],
+        saved:   ['Saved ✓',   'btn btn-green', true ],
+        error:   ['Error — retry', 'btn btn-red', false]
+      }[state] || ['Save', 'btn btn-green', false];
+
+      btn.className = cfg[1];
+      btn.disabled = cfg[2];
+      const txt = Array.from(btn.childNodes).find(n => n.nodeType === 3);
+      if (txt) txt.textContent = ' ' + cfg[0];
+    }
+
+    async function doPush() {
+      setSaveState('saving');
+      try {
+        await pushToGitHub(getToken(), collectData());
+        setSaveState('saved');
+        setTimeout(() => exitEdit(), 1500);
+      } catch (err) {
+        if (err.message === 'invalid_token') {
+          setSaveState('idle');
+          localStorage.removeItem('gh_token');
+          pendingPush = true;
+          document.getElementById('tokenConfirmBtn').textContent = 'Update Token & Push Live';
+          openTokenModal();
+        } else {
+          setSaveState('error');
+          console.error(err.message);
+        }
+      }
     }
 
     function saveEdits() {
-      // Save editable fields
+      // Persist locally first (instant feedback)
       document.querySelectorAll('[data-ed]').forEach(el => {
-        localStorage.setItem('cd_' + el.id, el.textContent.trim());
+        if (el.id) localStorage.setItem('cd_' + el.id, el.textContent.trim());
       });
-
-      // Save + render notes
       const ta = document.getElementById('notesTA');
-      const raw = ta.value.trim();
-      localStorage.setItem('cd_notes_raw', raw);
-      renderNotes(raw);
+      const notesRaw = ta ? ta.value.trim() : '';
+      if (notesRaw) { localStorage.setItem('cd_notes_raw', notesRaw); renderNotes(notesRaw); }
 
-      exitEdit();
+      // Push live via GitHub API
+      if (!getToken()) {
+        pendingPush = true;
+        document.getElementById('tokenConfirmBtn').textContent = 'Save Token & Push Live';
+        openTokenModal();
+        return;
+      }
+      doPush();
     }
 
+    // ── Notes rendering ──
     function renderNotes(raw) {
       if (!raw) return;
-      const paras = raw.split(/\n\n+/).filter(p => p.trim());
       const display = document.getElementById('notesDisplay');
-      display.innerHTML = paras.map(p => {
+      display.innerHTML = raw.split(/\n\n+/).filter(p => p.trim()).map(p => {
         const text = p.trim();
-        const tagMatch = text.match(/^\[([^\]]+)\]\s*/);
-        let tag = '';
-        let body = text;
-        if (tagMatch) {
-          tag = `<span class="note-tag">${tagMatch[1]}</span>`;
-          body = text.slice(tagMatch[0].length);
-        }
+        const m = text.match(/^\[([^\]]+)\]\s*/);
+        const tag = m ? `<span class="note-tag">${m[1]}</span>` : '';
+        const body = m ? text.slice(m[0].length) : text;
         return `<div class="note-row"><div class="note-dot"></div><div class="note-text">${tag}${body}</div></div>`;
       }).join('');
     }
 
-    // ── Load saved data ──
-    function loadSaved() {
-      document.querySelectorAll('[data-ed]').forEach(el => {
-        const saved = localStorage.getItem('cd_' + el.id);
-        if (saved) el.textContent = saved;
-      });
+    // ── Load data on page start ──
+    async function loadData() {
+      // Try live data.json first
+      try {
+        const r = await fetch('./data.json?_=' + Date.now(), { cache: 'no-store' });
+        if (r.ok) {
+          const d = await r.json();
+          if (d.fields) {
+            Object.entries(d.fields).forEach(([id, val]) => {
+              const el = document.getElementById(id);
+              if (el) el.textContent = val;
+            });
+          }
+          if (d.notes) { localStorage.setItem('cd_notes_raw', d.notes); renderNotes(d.notes); }
+          return;
+        }
+      } catch (_) { /* fall through */ }
 
-      const savedNotes = localStorage.getItem('cd_notes_raw');
-      if (savedNotes) renderNotes(savedNotes);
+      // Fallback: localStorage cache
+      document.querySelectorAll('[data-ed]').forEach(el => {
+        if (el.id) { const v = localStorage.getItem('cd_' + el.id); if (v) el.textContent = v; }
+      });
+      const n = localStorage.getItem('cd_notes_raw');
+      if (n) renderNotes(n);
     }
 
-    loadSaved();
+    loadData();
   </script>
 </body>
 </html>

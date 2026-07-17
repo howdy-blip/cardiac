@@ -72,6 +72,61 @@
       color: var(--gray-600);
     }
 
+    /* ── Month nav ── */
+    .month-nav {
+      display: flex; align-items: center; gap: 2px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: 20px;
+      padding: 4px;
+    }
+
+    .month-nav-btn {
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      border: none; background: transparent; border-radius: 50%;
+      cursor: pointer; color: var(--gray-600);
+      font-size: 14px; font-weight: 700; line-height: 1;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .month-nav-btn:hover:not(:disabled) { background: var(--gray-100); color: var(--black); }
+    .month-nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+    .month-nav-label {
+      font-size: 12px; font-weight: 600; color: var(--gray-600);
+      padding: 0 10px; min-width: 82px; text-align: center;
+      border: none; background: transparent; cursor: pointer;
+      font-family: var(--font); appearance: none;
+      -webkit-appearance: none;
+    }
+
+    /* ── Mini KPI row (visits/follows) ── */
+    .mini-kpi-row {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 12px; margin-top: 12px;
+    }
+
+    .mini-kpi {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 12px;
+      padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .mini-kpi-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--gray-500);
+    }
+
+    .mini-kpi-val { font-size: 17px; font-weight: 700; color: var(--black); }
+
+    .mini-kpi-chg { font-size: 11px; font-weight: 600; }
+
+    .camp-head.c-maroon { background: #8a1c15; }
+    .camp-head.c-gray { background: #6b6b6b; }
+
     .btn {
       display: inline-flex; align-items: center; gap: 6px;
       border: none; border-radius: 8px;
@@ -546,7 +601,11 @@
       </div>
     </div>
     <div class="header-right">
-      <div class="period-pill" data-ed id="h-period">May 2026</div>
+      <div class="month-nav">
+        <button class="month-nav-btn" id="monthPrev" onclick="stepMonth(-1)" title="Previous month">‹</button>
+        <select class="month-nav-label" id="monthSelect" onchange="selectMonth(this.value)"></select>
+        <button class="month-nav-btn" id="monthNext" onclick="stepMonth(1)" title="Next month">›</button>
+      </div>
       <button class="btn btn-ghost" onclick="openTokenModal()" title="Manage GitHub token" style="padding:8px 11px;">
         <svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:currentColor;display:block;"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
       </button>
@@ -602,7 +661,7 @@
         <div class="plat-icon plat-fb">
           <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </div>
-        Facebook Organic
+        Facebook
         <span style="font-size:11px;color:var(--gray-400);font-weight:400;text-transform:none;letter-spacing:0;" data-ed id="fb-period">May 1–31, 2026</span>
       </div>
 
@@ -610,22 +669,39 @@
         <div class="kpi">
           <div class="kpi-label">Views</div>
           <div class="kpi-val" data-ed id="fb-views">69.6K</div>
-          <div class="kpi-chg chg-up">↑ <span data-ed id="fb-views-chg">2.7%</span> vs prior period</div>
+          <div class="kpi-chg" id="fb-views-chg-row">↑ <span data-ed id="fb-views-chg">2.7%</span> vs prior period</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Viewers</div>
           <div class="kpi-val" data-ed id="fb-viewers">23.6K</div>
-          <div class="kpi-chg chg-down">↓ <span data-ed id="fb-viewers-chg">13.7%</span> vs prior period</div>
+          <div class="kpi-chg" id="fb-viewers-chg-row">↓ <span data-ed id="fb-viewers-chg">13.7%</span> vs prior period</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Content Interactions</div>
           <div class="kpi-val" data-ed id="fb-interactions">78</div>
-          <div class="kpi-chg chg-down">↓ <span data-ed id="fb-int-chg">2.5%</span> vs prior period</div>
+          <div class="kpi-chg" id="fb-int-chg-row">↓ <span data-ed id="fb-int-chg">2.5%</span> vs prior period</div>
         </div>
         <div class="kpi accent">
           <div class="kpi-label">Link Clicks</div>
           <div class="kpi-val red" data-ed id="fb-clicks">1,100</div>
-          <div class="kpi-chg chg-up">↑ <span data-ed id="fb-clicks-chg">11.2%</span> vs prior period</div>
+          <div class="kpi-chg" id="fb-clicks-chg-row">↑ <span data-ed id="fb-clicks-chg">11.2%</span> vs prior period</div>
+        </div>
+      </div>
+
+      <div class="mini-kpi-row">
+        <div class="mini-kpi">
+          <div class="mini-kpi-label">Visits</div>
+          <div style="text-align:right;">
+            <div class="mini-kpi-val" data-ed id="fb-visits">—</div>
+            <div class="mini-kpi-chg" id="fb-visits-chg-row">↑ <span data-ed id="fb-visits-chg">—</span></div>
+          </div>
+        </div>
+        <div class="mini-kpi">
+          <div class="mini-kpi-label">Follows</div>
+          <div style="text-align:right;">
+            <div class="mini-kpi-val" data-ed id="fb-follows">—</div>
+            <div class="mini-kpi-chg" id="fb-follows-chg-row">↑ <span data-ed id="fb-follows-chg">—</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -636,7 +712,7 @@
         <div class="plat-icon plat-ig">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </div>
-        Instagram Organic
+        Instagram
         <span style="font-size:11px;color:var(--gray-400);font-weight:400;text-transform:none;letter-spacing:0;" data-ed id="ig-period">May 1–31, 2026</span>
       </div>
 
@@ -644,22 +720,39 @@
         <div class="kpi">
           <div class="kpi-label">Views</div>
           <div class="kpi-val" data-ed id="ig-views">9,200</div>
-          <div class="kpi-chg chg-down">↓ <span data-ed id="ig-views-chg">4.2%</span> vs prior period</div>
+          <div class="kpi-chg" id="ig-views-chg-row">↓ <span data-ed id="ig-views-chg">4.2%</span> vs prior period</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Reach</div>
           <div class="kpi-val" data-ed id="ig-reach">3,700</div>
-          <div class="kpi-chg chg-down">↓ <span data-ed id="ig-reach-chg">18.2%</span> vs prior period</div>
+          <div class="kpi-chg" id="ig-reach-chg-row">↓ <span data-ed id="ig-reach-chg">18.2%</span> vs prior period</div>
         </div>
         <div class="kpi accent">
           <div class="kpi-label">Content Interactions</div>
           <div class="kpi-val red" data-ed id="ig-interactions">81</div>
-          <div class="kpi-chg chg-up">↑ <span data-ed id="ig-int-chg">350%</span> vs prior period</div>
+          <div class="kpi-chg" id="ig-int-chg-row">↑ <span data-ed id="ig-int-chg">350%</span> vs prior period</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Link Clicks</div>
           <div class="kpi-val" data-ed id="ig-clicks">121</div>
-          <div class="kpi-chg chg-up">↑ <span data-ed id="ig-clicks-chg">33%</span> vs prior period</div>
+          <div class="kpi-chg" id="ig-clicks-chg-row">↑ <span data-ed id="ig-clicks-chg">33%</span> vs prior period</div>
+        </div>
+      </div>
+
+      <div class="mini-kpi-row">
+        <div class="mini-kpi">
+          <div class="mini-kpi-label">Visits</div>
+          <div style="text-align:right;">
+            <div class="mini-kpi-val" data-ed id="ig-visits">—</div>
+            <div class="mini-kpi-chg" id="ig-visits-chg-row">↑ <span data-ed id="ig-visits-chg">—</span></div>
+          </div>
+        </div>
+        <div class="mini-kpi">
+          <div class="mini-kpi-label">Follows</div>
+          <div style="text-align:right;">
+            <div class="mini-kpi-val" data-ed id="ig-follows">—</div>
+            <div class="mini-kpi-chg" id="ig-follows-chg-row">↑ <span data-ed id="ig-follows-chg">—</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -672,126 +765,26 @@
         <div class="kpi">
           <div class="kpi-label">Total Ad Spend</div>
           <div class="kpi-val red" data-ed id="ads-spend">$1,262.95</div>
-          <div class="kpi-chg chg-neutral">Across 3 campaigns</div>
+          <div class="kpi-chg chg-neutral" data-ed id="ads-spend-note">Across 3 campaigns</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Lead Form Leads</div>
           <div class="kpi-val" data-ed id="ads-leads">133</div>
-          <div class="kpi-chg chg-neutral">FRED + EasyPort</div>
+          <div class="kpi-chg chg-neutral" data-ed id="ads-leads-note">FRED + EasyPort</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Blended CPL</div>
           <div class="kpi-val" data-ed id="ads-cpl">$7.51</div>
-          <div class="kpi-chg chg-neutral">Lead campaigns only</div>
+          <div class="kpi-chg chg-neutral" data-ed id="ads-cpl-note">Lead campaigns only</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Combined Reach</div>
           <div class="kpi-val" data-ed id="ads-reach">26.4K</div>
-          <div class="kpi-chg chg-neutral">Sum across campaigns</div>
+          <div class="kpi-chg chg-neutral" data-ed id="ads-reach-note">Sum across campaigns</div>
         </div>
       </div>
 
-      <!-- Campaign 1 -->
-      <div class="camp">
-        <div class="camp-head c-red">
-          <div class="camp-name" data-ed id="c1-name">FRED PA-1 Bundle — Leads Campaign</div>
-          <div class="camp-badge">Lowest CPL</div>
-        </div>
-        <div class="camp-metrics">
-          <div class="camp-m">
-            <div class="cm-l">Leads</div>
-            <div class="cm-v" data-ed id="c1-leads">62</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Reach</div>
-            <div class="cm-v" data-ed id="c1-reach">9,528</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Frequency</div>
-            <div class="cm-v" data-ed id="c1-freq">1.88</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">CPL</div>
-            <div class="cm-v red" data-ed id="c1-cpl">$6.12</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Daily Budget</div>
-            <div class="cm-v" data-ed id="c1-budget">$25/day</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Amount Spent</div>
-            <div class="cm-v" data-ed id="c1-spent">$379.48</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Campaign 2 -->
-      <div class="camp">
-        <div class="camp-head c-black">
-          <div class="camp-name" data-ed id="c2-name">Cardiac Defibrillators — EasyPort</div>
-          <div class="camp-badge">Active</div>
-        </div>
-        <div class="camp-metrics">
-          <div class="camp-m">
-            <div class="cm-l">Leads</div>
-            <div class="cm-v" data-ed id="c2-leads">71</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Reach</div>
-            <div class="cm-v" data-ed id="c2-reach">10,780</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Frequency</div>
-            <div class="cm-v" data-ed id="c2-freq">2.77</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">CPL</div>
-            <div class="cm-v" data-ed id="c2-cpl">$8.72</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Daily Budget</div>
-            <div class="cm-v" data-ed id="c2-budget">$20/day</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Amount Spent</div>
-            <div class="cm-v" data-ed id="c2-spent">$619.47</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Campaign 3 -->
-      <div class="camp">
-        <div class="camp-head c-dark">
-          <div class="camp-name" data-ed id="c3-name">Cardiac Defibrillators — EOFY 2026</div>
-          <div class="camp-badge">Website Purchase</div>
-        </div>
-        <div class="camp-metrics">
-          <div class="camp-m">
-            <div class="cm-l">Purchases</div>
-            <div class="cm-v" data-ed id="c3-results">—</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Reach</div>
-            <div class="cm-v" data-ed id="c3-reach">6,084</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Frequency</div>
-            <div class="cm-v" data-ed id="c3-freq">2.70</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Cost/Purchase</div>
-            <div class="cm-v" data-ed id="c3-cpp">—</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Daily Budget</div>
-            <div class="cm-v" data-ed id="c3-budget">$40/day</div>
-          </div>
-          <div class="camp-m">
-            <div class="cm-l">Amount Spent</div>
-            <div class="cm-v" data-ed id="c3-spent">$264.00</div>
-          </div>
-        </div>
-      </div>
+      <div id="campaignsContainer"></div>
     </div>
 
     <!-- ── Audience ── -->
@@ -875,52 +868,24 @@
       <!-- Facebook MoM -->
       <div class="card" style="margin-bottom:14px;">
         <div class="card-head">
-          <div class="card-title">Facebook Organic</div>
+          <div class="card-title">Facebook</div>
           <div class="card-sub">Updated each month</div>
         </div>
-        <table class="mom-table">
-          <thead>
-            <tr>
-              <th>Metric</th>
-              <th>May 2026</th>
-              <th>Jun 2026</th>
-              <th>Jul 2026</th>
-              <th>Aug 2026</th>
-              <th>Sep 2026</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Views</td><td class="current">69.6K</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            <tr><td>Viewers</td><td class="current">23.6K</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            <tr><td>Content Interactions</td><td class="current">78</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            <tr><td>Link Clicks</td><td class="current">1,100</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-          </tbody>
+        <table class="mom-table" id="mom-fb">
+          <thead></thead>
+          <tbody></tbody>
         </table>
       </div>
 
       <!-- Instagram MoM -->
       <div class="card" style="margin-bottom:14px;">
         <div class="card-head">
-          <div class="card-title">Instagram Organic</div>
+          <div class="card-title">Instagram</div>
           <div class="card-sub">Updated each month</div>
         </div>
-        <table class="mom-table">
-          <thead>
-            <tr>
-              <th>Metric</th>
-              <th>May 2026</th>
-              <th>Jun 2026</th>
-              <th>Jul 2026</th>
-              <th>Aug 2026</th>
-              <th>Sep 2026</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Views</td><td class="current">9,200</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            <tr><td>Reach</td><td class="current">3,700</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            <tr><td>Content Interactions</td><td class="current">81</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            <tr><td>Link Clicks</td><td class="current">121</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-          </tbody>
+        <table class="mom-table" id="mom-ig">
+          <thead></thead>
+          <tbody></tbody>
         </table>
       </div>
 
@@ -930,23 +895,9 @@
           <div class="card-title">Meta Ads</div>
           <div class="card-sub">Updated each month</div>
         </div>
-        <table class="mom-table">
-          <thead>
-            <tr>
-              <th>Metric</th>
-              <th>May 2026</th>
-              <th>Jun 2026</th>
-              <th>Jul 2026</th>
-              <th>Aug 2026</th>
-              <th>Sep 2026</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Total Spend</td><td class="current">$1,262.95</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            <tr><td>Total Leads</td><td class="current">133</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            <tr><td>Blended CPL</td><td class="current">$7.51</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            <tr><td>Combined Reach</td><td class="current">26,392</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-          </tbody>
+        <table class="mom-table" id="mom-ads">
+          <thead></thead>
+          <tbody></tbody>
         </table>
       </div>
     </div>
@@ -958,7 +909,7 @@
       <div class="notes-wrap">
         <div class="notes-head">
           <div class="notes-pulse"></div>
-          <div class="notes-title">May 2026 — Analysis &amp; Upcoming Actions</div>
+          <div class="notes-title" id="notesTitle">May 2026 — Analysis &amp; Upcoming Actions</div>
           <div class="notes-hint">Click Edit to update</div>
         </div>
         <div class="notes-body" id="notesDisplay">
@@ -1008,6 +959,272 @@
     const BRANCH = 'main';
     let editing = false;
     let pendingPush = false;
+
+    // ── Baseline data (embedded fallback; overridden by data.json on load) ──
+    const DEFAULT_DATA = {
+      order: ['2026-05', '2026-06'],
+      months: {
+        '2026-05': {
+          fields: {
+            'sb-period': 'May 1–31, 2026', 'sb-camps': '3 Meta Ads campaigns',
+            'sb-spend': '$1,262.95', 'sb-leads': '133 leads', 'sb-updated': '1 June 2026',
+            'fb-period': 'May 1–31, 2026',
+            'fb-views': '69.6K', 'fb-views-chg': '2.7%', 'fb-views-chg-dir': 'up',
+            'fb-viewers': '23.6K', 'fb-viewers-chg': '13.7%', 'fb-viewers-chg-dir': 'down',
+            'fb-interactions': '78', 'fb-int-chg': '2.5%', 'fb-int-chg-dir': 'down',
+            'fb-clicks': '1,100', 'fb-clicks-chg': '11.2%', 'fb-clicks-chg-dir': 'up',
+            'fb-visits': '—', 'fb-visits-chg': '—', 'fb-visits-chg-dir': 'neutral',
+            'fb-follows': '—', 'fb-follows-chg': '—', 'fb-follows-chg-dir': 'neutral',
+            'ig-period': 'May 1–31, 2026',
+            'ig-views': '9,200', 'ig-views-chg': '4.2%', 'ig-views-chg-dir': 'down',
+            'ig-reach': '3,700', 'ig-reach-chg': '18.2%', 'ig-reach-chg-dir': 'down',
+            'ig-interactions': '81', 'ig-int-chg': '350%', 'ig-int-chg-dir': 'up',
+            'ig-clicks': '121', 'ig-clicks-chg': '33%', 'ig-clicks-chg-dir': 'up',
+            'ig-visits': '—', 'ig-visits-chg': '—', 'ig-visits-chg-dir': 'neutral',
+            'ig-follows': '—', 'ig-follows-chg': '—', 'ig-follows-chg-dir': 'neutral',
+            'ads-spend': '$1,262.95', 'ads-spend-note': 'Across 3 campaigns',
+            'ads-leads': '133', 'ads-leads-note': 'FRED + EasyPort',
+            'ads-cpl': '$7.51', 'ads-cpl-note': 'Lead campaigns only',
+            'ads-reach': '26.4K', 'ads-reach-note': 'Sum across campaigns',
+            'fred-name': 'FRED PA-1 Bundle — Leads Campaign', 'fred-badge': 'Lowest CPL',
+            'fred-result': '62', 'fred-reach': '9,528', 'fred-freq': '1.88', 'fred-cost': '$6.12',
+            'fred-budget': '$25/day', 'fred-spent': '$379.48',
+            'easyport-name': 'Cardiac Defibrillators — EasyPort', 'easyport-badge': 'Active',
+            'easyport-result': '71', 'easyport-reach': '10,780', 'easyport-freq': '2.77', 'easyport-cost': '$8.72',
+            'easyport-budget': '$20/day', 'easyport-spent': '$619.47',
+            'eofy-name': 'Cardiac Defibrillators — EOFY 2026', 'eofy-badge': 'Website Purchase',
+            'eofy-result': '—', 'eofy-reach': '6,084', 'eofy-freq': '2.70', 'eofy-cost': '—',
+            'eofy-budget': '$40/day', 'eofy-spent': '$264.00',
+            'aud-women': '50.2%', 'aud-men': '49.8%'
+          },
+          campaigns: [
+            { id: 'fred', type: 'leads', headerClass: 'c-red', highlight: true },
+            { id: 'easyport', type: 'leads', headerClass: 'c-black', highlight: false },
+            { id: 'eofy', type: 'purchases', headerClass: 'c-dark', highlight: false }
+          ],
+          notes: "[Highlight] The FRED PA-1 Bundle leads campaign is the standout performer this month at $6.12 CPL — well below the EasyPort campaign ($8.72). Consider increasing the FRED daily budget from $25 to $35–$40 to capitalise on this efficiency before the EOFY period ends.\n\n[Watch] EasyPort campaign frequency has reached 2.77 — above the 2.5 warning threshold. Audience fatigue is likely building. Refresh creative or expand targeting in June to prevent CPL from climbing.\n\n[Instagram] Content interactions jumped 350% month-on-month — a significant spike. Identify which posts drove this and double down on that content format. Link clicks are also up 33%, suggesting improving intent.\n\n[Facebook] Link clicks on Facebook are up 11.2% despite a drop in unique viewers (−13.7%). This points to a more engaged, returning audience rather than new reach — a healthy signal for the brand.\n\n[Audience] Melbourne (23.2%) dominates the audience with Sydney second at 8.9%. Victoria and NSW combined account for ~32% of reach. Geo-targeted content or city-specific ad sets could improve relevance and conversion rates.\n\n[EOFY] The EOFY 2026 campaign is tracking spend ($264 at $40/day) but purchase conversions are not yet confirmed. Review conversion data before end of June and reallocate budget to FRED leads campaign if ROAS is not meeting targets."
+        },
+        '2026-06': {
+          fields: {
+            'sb-period': 'June 1–30, 2026', 'sb-camps': '4 Meta Ads campaigns',
+            'sb-spend': '$2,916.20', 'sb-leads': '144 leads', 'sb-updated': '1 July 2026',
+            'fb-period': 'June 1–30, 2026',
+            'fb-views': '134.8K', 'fb-views-chg': '91.7%', 'fb-views-chg-dir': 'up',
+            'fb-viewers': '50.3K', 'fb-viewers-chg': '108%', 'fb-viewers-chg-dir': 'up',
+            'fb-interactions': '106', 'fb-int-chg': '41.3%', 'fb-int-chg-dir': 'up',
+            'fb-clicks': '1.3K', 'fb-clicks-chg': '29.6%', 'fb-clicks-chg-dir': 'up',
+            'fb-visits': '322', 'fb-visits-chg': '7.7%', 'fb-visits-chg-dir': 'up',
+            'fb-follows': '5', 'fb-follows-chg': '25%', 'fb-follows-chg-dir': 'up',
+            'ig-period': 'June 1–30, 2026',
+            'ig-views': '21.2K', 'ig-views-chg': '128%', 'ig-views-chg-dir': 'up',
+            'ig-reach': '9.6K', 'ig-reach-chg': '142.3%', 'ig-reach-chg-dir': 'up',
+            'ig-interactions': '79', 'ig-int-chg': '1.3%', 'ig-int-chg-dir': 'up',
+            'ig-clicks': '214', 'ig-clicks-chg': '82.9%', 'ig-clicks-chg-dir': 'up',
+            'ig-visits': '47', 'ig-visits-chg': '34.3%', 'ig-visits-chg-dir': 'up',
+            'ig-follows': '7', 'ig-follows-chg': '12.5%', 'ig-follows-chg-dir': 'down',
+            'ads-spend': '$2,916.20', 'ads-spend-note': 'Across 4 campaigns',
+            'ads-leads': '144', 'ads-leads-note': 'EasyPort + FRED + SA',
+            'ads-cpl': '$11.99', 'ads-cpl-note': 'Lead campaigns only',
+            'ads-reach': '67.1K', 'ads-reach-note': 'Sum across campaigns',
+            'easyport-name': 'Cardiac Defibrillators — EasyPort', 'easyport-badge': 'Lowest CPL',
+            'easyport-result': '82', 'easyport-reach': '10,183', 'easyport-freq': '2.45', 'easyport-cost': '$7.36',
+            'easyport-budget': '$20/day', 'easyport-spent': '$603.48',
+            'fred-name': 'FRED PA-1 Bundle — Leads Campaign', 'fred-badge': 'Active',
+            'fred-result': '56', 'fred-reach': '15,425', 'fred-freq': '1.80', 'fred-cost': '$13.47',
+            'fred-budget': '$25/day', 'fred-spent': '$754.51',
+            'sa-name': 'South Australian Legislation', 'sa-badge': 'Ended (EOFY)',
+            'sa-result': '6', 'sa-reach': '9,050', 'sa-freq': '1.88', 'sa-cost': '$61.33',
+            'sa-budget': '$15/day', 'sa-spent': '$367.95',
+            'eofy-name': 'Cardiac Defibrillators — EOFY 2026', 'eofy-badge': 'Website Purchase',
+            'eofy-result': '5', 'eofy-reach': '32,438', 'eofy-freq': '2.62', 'eofy-cost': '$238.05',
+            'eofy-budget': '$40/day', 'eofy-spent': '$1,190.26',
+            'aud-women': '50.2%', 'aud-men': '49.8%'
+          },
+          campaigns: [
+            { id: 'easyport', type: 'leads', headerClass: 'c-black', highlight: true },
+            { id: 'fred', type: 'leads', headerClass: 'c-red', highlight: false },
+            { id: 'sa', type: 'leads', headerClass: 'c-maroon', highlight: false },
+            { id: 'eofy', type: 'purchases', headerClass: 'c-dark', highlight: false }
+          ],
+          notes: "[Lead Quality] The owner noted June's leads felt noticeably higher quality despite lower volume from FRED and SA. We don't have CRM or close-rate data to confirm this yet, but it lines up with the creative and targeting refresh rolled out this month — worth comparing sales follow-up outcomes next month to see if the refresh is the driver.\n\n[Watch] FRED PA-1 Bundle's CPL more than doubled to $13.47 (from $6.12 in May) as leads fell to 56. EasyPort is now the cheapest lead source at $7.36 with 82 leads — worth shifting some daily budget from FRED toward EasyPort if this holds into July.\n\n[Ended] South Australian Legislation wound up at the end of the financial year — its final month was its most expensive ($61.33 CPL, 6 leads) but it served its short-term compliance-awareness purpose. No action needed unless it's revived for a future SA-specific push.\n\n[Facebook] Facebook views jumped 91.7% to 134.8K and viewers roughly doubled (+108%) — the strongest month this year. Content interactions (+41.3%) and link clicks (+29.6%) grew alongside it, so the reach gain is converting into real engagement rather than passive impressions.\n\n[Instagram] Instagram views were up 128% to 21.2K and reach up 142.3%, though follows dipped slightly (−12.5%, down to 7). The growth is coming from reach rather than audience building — a follow-focused CTA could help capture some of that traffic spike.\n\n[EOFY] EOFY 2026 recorded its first 5 tracked purchases this month at $238.05 cost/purchase on $1,190.26 spend. Reach is strong (32,438) but the conversion cost is high — review margins before continuing at $40/day now that EOFY urgency has passed."
+        }
+      }
+    };
+
+    let DATA = JSON.parse(JSON.stringify(DEFAULT_DATA));
+    let currentMonth = DATA.order[DATA.order.length - 1];
+
+    const SIMPLE_FIELDS = [
+      'sb-period', 'sb-camps', 'sb-spend', 'sb-leads', 'sb-updated',
+      'fb-period', 'fb-views', 'fb-viewers', 'fb-interactions', 'fb-clicks', 'fb-visits', 'fb-follows',
+      'ig-period', 'ig-views', 'ig-reach', 'ig-interactions', 'ig-clicks', 'ig-visits', 'ig-follows',
+      'ads-spend', 'ads-spend-note', 'ads-leads', 'ads-leads-note', 'ads-cpl', 'ads-cpl-note', 'ads-reach', 'ads-reach-note'
+    ];
+
+    const CHG_FIELDS = [
+      { val: 'fb-views-chg', row: 'fb-views-chg-row', suffix: 'vs prior period' },
+      { val: 'fb-viewers-chg', row: 'fb-viewers-chg-row', suffix: 'vs prior period' },
+      { val: 'fb-int-chg', row: 'fb-int-chg-row', suffix: 'vs prior period' },
+      { val: 'fb-clicks-chg', row: 'fb-clicks-chg-row', suffix: 'vs prior period' },
+      { val: 'fb-visits-chg', row: 'fb-visits-chg-row', suffix: '' },
+      { val: 'fb-follows-chg', row: 'fb-follows-chg-row', suffix: '' },
+      { val: 'ig-views-chg', row: 'ig-views-chg-row', suffix: 'vs prior period' },
+      { val: 'ig-reach-chg', row: 'ig-reach-chg-row', suffix: 'vs prior period' },
+      { val: 'ig-int-chg', row: 'ig-int-chg-row', suffix: 'vs prior period' },
+      { val: 'ig-clicks-chg', row: 'ig-clicks-chg-row', suffix: 'vs prior period' },
+      { val: 'ig-visits-chg', row: 'ig-visits-chg-row', suffix: '' },
+      { val: 'ig-follows-chg', row: 'ig-follows-chg-row', suffix: '' }
+    ];
+
+    function esc(s) {
+      const d = document.createElement('div');
+      d.textContent = s == null ? '' : s;
+      return d.innerHTML;
+    }
+
+    function fmtMonthShort(key) {
+      const [y, m] = key.split('-').map(Number);
+      return new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+    }
+
+    function fmtMonthLong(key) {
+      const [y, m] = key.split('-').map(Number);
+      return new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+    }
+
+    function setChgRow(rowId, valueId, value, dir, suffix) {
+      const row = document.getElementById(rowId);
+      if (!row) return;
+      const arrow = dir === 'up' ? '↑' : dir === 'down' ? '↓' : '→';
+      const cls = dir === 'up' ? 'chg-up' : dir === 'down' ? 'chg-down' : 'chg-neutral';
+      row.classList.remove('chg-up', 'chg-down', 'chg-neutral');
+      row.classList.add(cls);
+      row.innerHTML = arrow + ' <span data-ed id="' + valueId + '">' + esc(value) + '</span>' + (suffix ? ' ' + suffix : '');
+    }
+
+    function renderKPIs(month) {
+      const f = month.fields;
+      SIMPLE_FIELDS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && f[id] != null) el.textContent = f[id];
+      });
+      CHG_FIELDS.forEach(c => {
+        const dir = f[c.val + '-dir'] || 'neutral';
+        setChgRow(c.row, c.val, f[c.val] != null ? f[c.val] : '—', dir, c.suffix);
+      });
+    }
+
+    function campaignHTML(camp, f) {
+      const id = camp.id;
+      const resultLabel = camp.type === 'purchases' ? 'Purchases' : 'Leads';
+      const costLabel = camp.type === 'purchases' ? 'Cost/Purchase' : 'CPL';
+      const costCls = camp.highlight ? 'cm-v red' : 'cm-v';
+      return '<div class="camp">'
+        + '<div class="camp-head ' + camp.headerClass + '">'
+        + '<div class="camp-name" data-ed id="' + id + '-name">' + esc(f[id + '-name']) + '</div>'
+        + '<div class="camp-badge" data-ed id="' + id + '-badge">' + esc(f[id + '-badge']) + '</div>'
+        + '</div>'
+        + '<div class="camp-metrics">'
+        + '<div class="camp-m"><div class="cm-l">' + resultLabel + '</div><div class="cm-v" data-ed id="' + id + '-result">' + esc(f[id + '-result']) + '</div></div>'
+        + '<div class="camp-m"><div class="cm-l">Reach</div><div class="cm-v" data-ed id="' + id + '-reach">' + esc(f[id + '-reach']) + '</div></div>'
+        + '<div class="camp-m"><div class="cm-l">Frequency</div><div class="cm-v" data-ed id="' + id + '-freq">' + esc(f[id + '-freq']) + '</div></div>'
+        + '<div class="camp-m"><div class="cm-l">' + costLabel + '</div><div class="' + costCls + '" data-ed id="' + id + '-cost">' + esc(f[id + '-cost']) + '</div></div>'
+        + '<div class="camp-m"><div class="cm-l">Daily Budget</div><div class="cm-v" data-ed id="' + id + '-budget">' + esc(f[id + '-budget']) + '</div></div>'
+        + '<div class="camp-m"><div class="cm-l">Amount Spent</div><div class="cm-v" data-ed id="' + id + '-spent">' + esc(f[id + '-spent']) + '</div></div>'
+        + '</div></div>';
+    }
+
+    function renderCampaigns(month) {
+      document.getElementById('campaignsContainer').innerHTML = month.campaigns.map(c => campaignHTML(c, month.fields)).join('');
+    }
+
+    function buildMomColumns() {
+      const cols = [...DATA.order];
+      let [y, m] = cols[cols.length - 1].split('-').map(Number);
+      for (let i = 0; i < 2; i++) {
+        m++; if (m > 12) { m = 1; y++; }
+        cols.push(y + '-' + String(m).padStart(2, '0'));
+      }
+      return cols;
+    }
+
+    function renderMomTable(tableId, metricDefs) {
+      const table = document.getElementById(tableId);
+      const cols = buildMomColumns();
+      table.querySelector('thead').innerHTML = '<tr><th>Metric</th>' + cols.map(c => '<th>' + fmtMonthShort(c) + '</th>').join('') + '</tr>';
+      table.querySelector('tbody').innerHTML = metricDefs.map(md => {
+        const cells = cols.map(c => {
+          const m = DATA.months[c];
+          const val = m ? m.fields[md.id] : null;
+          if (val == null) return '<td class="empty">—</td>';
+          const cls = c === currentMonth ? 'current' : '';
+          return '<td class="' + cls + '">' + esc(val) + '</td>';
+        }).join('');
+        return '<tr><td>' + md.label + '</td>' + cells + '</tr>';
+      }).join('');
+    }
+
+    function renderAllMom() {
+      renderMomTable('mom-fb', [
+        { id: 'fb-views', label: 'Views' },
+        { id: 'fb-viewers', label: 'Viewers' },
+        { id: 'fb-interactions', label: 'Content Interactions' },
+        { id: 'fb-clicks', label: 'Link Clicks' }
+      ]);
+      renderMomTable('mom-ig', [
+        { id: 'ig-views', label: 'Views' },
+        { id: 'ig-reach', label: 'Reach' },
+        { id: 'ig-interactions', label: 'Content Interactions' },
+        { id: 'ig-clicks', label: 'Link Clicks' }
+      ]);
+      renderMomTable('mom-ads', [
+        { id: 'ads-spend', label: 'Total Spend' },
+        { id: 'ads-leads', label: 'Total Leads' },
+        { id: 'ads-cpl', label: 'Blended CPL' },
+        { id: 'ads-reach', label: 'Combined Reach' }
+      ]);
+    }
+
+    function renderNotesForMonth(month, monthKey) {
+      document.getElementById('notesTitle').textContent = fmtMonthLong(monthKey) + ' — Analysis & Upcoming Actions';
+      renderNotes(month.notes);
+    }
+
+    function renderMonthNav() {
+      const sel = document.getElementById('monthSelect');
+      sel.innerHTML = DATA.order.map(k => '<option value="' + k + '">' + fmtMonthLong(k) + '</option>').join('');
+      sel.value = currentMonth;
+      const idx = DATA.order.indexOf(currentMonth);
+      document.getElementById('monthPrev').disabled = editing || idx <= 0;
+      document.getElementById('monthNext').disabled = editing || idx >= DATA.order.length - 1;
+      sel.disabled = editing;
+    }
+
+    function render(monthKey) {
+      const month = DATA.months[monthKey];
+      if (!month) return;
+      renderKPIs(month);
+      renderCampaigns(month);
+      renderAllMom();
+      renderNotesForMonth(month, monthKey);
+    }
+
+    function setCurrentMonth(key) {
+      if (!DATA.months[key] || editing) return;
+      currentMonth = key;
+      localStorage.setItem('cd_current_month', key);
+      renderMonthNav();
+      render(currentMonth);
+    }
+
+    function stepMonth(delta) {
+      const idx = DATA.order.indexOf(currentMonth);
+      const newIdx = idx + delta;
+      if (newIdx < 0 || newIdx >= DATA.order.length) return;
+      setCurrentMonth(DATA.order[newIdx]);
+    }
+
+    function selectMonth(key) { setCurrentMonth(key); }
 
     // ── Token management ──
     const getToken = () => localStorage.getItem('gh_token') || '';
@@ -1097,22 +1314,12 @@
         document.getElementById('editBtn').innerHTML.replace('Edit', 'Exit Edit');
 
       document.querySelectorAll('[data-ed]').forEach(el => { el.contentEditable = 'true'; });
+      renderMonthNav();
 
       const display = document.getElementById('notesDisplay');
       const editArea = document.getElementById('notesEdit');
       const ta = document.getElementById('notesTA');
-      const saved = localStorage.getItem('cd_notes_raw');
-      if (saved) {
-        ta.value = saved;
-      } else {
-        const lines = Array.from(display.querySelectorAll('.note-text')).map(n => {
-          const tag = n.querySelector('.note-tag');
-          const tagText = tag ? '[' + tag.textContent + '] ' : '';
-          const bodyText = tag ? n.textContent.replace(tag.textContent, '').trim() : n.textContent.trim();
-          return tagText + bodyText;
-        });
-        ta.value = lines.join('\n\n');
-      }
+      ta.value = DATA.months[currentMonth].notes || '';
       display.style.display = 'none';
       editArea.style.display = 'block';
     }
@@ -1125,6 +1332,7 @@
       document.querySelectorAll('[data-ed]').forEach(el => { el.contentEditable = 'false'; });
       document.getElementById('notesDisplay').style.display = 'block';
       document.getElementById('notesEdit').style.display = 'none';
+      renderMonthNav();
       setSaveState('idle');
     }
 
@@ -1136,14 +1344,13 @@
       return btoa(bin);
     }
 
-    function collectData() {
-      const fields = {};
+    function applyEditsToCurrentMonth() {
+      const month = DATA.months[currentMonth];
       document.querySelectorAll('[data-ed]').forEach(el => {
-        if (el.id) fields[el.id] = el.textContent.trim();
+        if (el.id) month.fields[el.id] = el.textContent.trim();
       });
       const ta = document.getElementById('notesTA');
-      const notes = ta ? ta.value.trim() : (localStorage.getItem('cd_notes_raw') || '');
-      return { fields, notes, updated: new Date().toISOString() };
+      if (ta) month.notes = ta.value.trim();
     }
 
     async function pushToGitHub(token, data) {
@@ -1200,10 +1407,13 @@
 
     async function doPush() {
       setSaveState('saving');
+      applyEditsToCurrentMonth();
       try {
-        await pushToGitHub(getToken(), collectData());
+        DATA.updatedAt = new Date().toISOString();
+        await pushToGitHub(getToken(), DATA);
+        localStorage.setItem('cd_data_cache', JSON.stringify(DATA));
         setSaveState('saved');
-        setTimeout(() => exitEdit(), 1500);
+        setTimeout(() => { exitEdit(); render(currentMonth); }, 1500);
       } catch (err) {
         if (err.message === 'invalid_token') {
           setSaveState('idle');
@@ -1219,13 +1429,9 @@
     }
 
     function saveEdits() {
-      // Persist locally first (instant feedback)
-      document.querySelectorAll('[data-ed]').forEach(el => {
-        if (el.id) localStorage.setItem('cd_' + el.id, el.textContent.trim());
-      });
-      const ta = document.getElementById('notesTA');
-      const notesRaw = ta ? ta.value.trim() : '';
-      if (notesRaw) { localStorage.setItem('cd_notes_raw', notesRaw); renderNotes(notesRaw); }
+      applyEditsToCurrentMonth();
+      renderNotes(DATA.months[currentMonth].notes);
+      localStorage.setItem('cd_data_cache', JSON.stringify(DATA));
 
       // Push live via GitHub API
       if (!getToken()) {
@@ -1239,12 +1445,12 @@
 
     // ── Notes rendering ──
     function renderNotes(raw) {
-      if (!raw) return;
       const display = document.getElementById('notesDisplay');
+      if (!raw) { display.innerHTML = ''; return; }
       display.innerHTML = raw.split(/\n\n+/).filter(p => p.trim()).map(p => {
         const text = p.trim();
         const m = text.match(/^\[([^\]]+)\]\s*/);
-        const tag = m ? `<span class="note-tag">${m[1]}</span>` : '';
+        const tag = m ? `<span class="note-tag">${esc(m[1])}</span>` : '';
         const body = m ? text.slice(m[0].length) : text;
         return `<div class="note-row"><div class="note-dot"></div><div class="note-text">${tag}${body}</div></div>`;
       }).join('');
@@ -1252,28 +1458,26 @@
 
     // ── Load data on page start ──
     async function loadData() {
-      // Try live data.json first
+      let loaded = false;
       try {
         const r = await fetch('./data.json?_=' + Date.now(), { cache: 'no-store' });
         if (r.ok) {
           const d = await r.json();
-          if (d.fields) {
-            Object.entries(d.fields).forEach(([id, val]) => {
-              const el = document.getElementById(id);
-              if (el) el.textContent = val;
-            });
-          }
-          if (d.notes) { localStorage.setItem('cd_notes_raw', d.notes); renderNotes(d.notes); }
-          return;
+          if (d && d.months && d.order) { DATA = d; loaded = true; }
         }
       } catch (_) { /* fall through */ }
 
-      // Fallback: localStorage cache
-      document.querySelectorAll('[data-ed]').forEach(el => {
-        if (el.id) { const v = localStorage.getItem('cd_' + el.id); if (v) el.textContent = v; }
-      });
-      const n = localStorage.getItem('cd_notes_raw');
-      if (n) renderNotes(n);
+      if (!loaded) {
+        const cached = localStorage.getItem('cd_data_cache');
+        if (cached) {
+          try { DATA = JSON.parse(cached); } catch (_) { /* keep embedded defaults */ }
+        }
+      }
+
+      const savedMonth = localStorage.getItem('cd_current_month');
+      currentMonth = (savedMonth && DATA.months[savedMonth]) ? savedMonth : DATA.order[DATA.order.length - 1];
+      renderMonthNav();
+      render(currentMonth);
     }
 
     loadData();

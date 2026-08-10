@@ -1,5 +1,5 @@
 {
-  "order": ["2026-05", "2026-06"],
+  "order": ["2026-05", "2026-06", "2026-07"],
   "months": {
     "2026-05": {
       "fields": {
@@ -84,7 +84,47 @@
         { "id": "eofy", "type": "purchases", "headerClass": "c-dark", "highlight": false }
       ],
       "notes": "[Lead Quality] Dean outlined an increase in the quality of leads. Without analysing CRM data from previous purchases/enquiries, ad graphics were refreshed during this period, and perhaps the end of financial year period had more ‘intent’ leads than generally throughout the year.\n\n[Watch] FRED PA-1 Bundle's CPL more than doubled to $13.47 (from $6.12 in May) as leads fell to 56. EasyPort is now the cheapest lead source at $7.36 with 82 leads. We have since switched off EasyPort ads, and added in Trade-In and IFPP advertisements. FRED ads remained running due to the low cost per conversion, hoping to convert those leads into regular FRED PA-1 purchases/enquiries.\n\n[Ended] South Australian Legislation wound up at the end of the financial year — focused on the compliance angle and to drive awareness/sales during EOFY.\n\n[Facebook] Facebook views jumped 91.7% to 134.8K and viewers roughly doubled (+108%) — the strongest month this year. Content interactions (+41.3%) and link clicks (+29.6%) grew alongside it, so the reach gain is converting into real engagement rather than passive impressions.\n\n[Instagram] Instagram views were up 128% to 21.2K and reach up 142.3%, though follows dipped slightly (−12.5%, down to 7). The growth is coming from reach rather than audience building."
+    },
+    "2026-07": {
+      "fields": {
+        "sb-period": "July 1–31, 2026", "sb-camps": "3 Meta Ads campaigns",
+        "sb-spend": "$1,380.18", "sb-leads": "147 leads", "sb-updated": "10 August 2026",
+        "fb-period": "July 1–31, 2026",
+        "fb-views": "26.0K", "fb-views-chg": "46.6%", "fb-views-chg-dir": "down",
+        "fb-viewers": "7.6K", "fb-viewers-chg": "56.2%", "fb-viewers-chg-dir": "down",
+        "fb-interactions": "264", "fb-int-chg": "29.8%", "fb-int-chg-dir": "down",
+        "fb-clicks": "10", "fb-clicks-chg": "91.9%", "fb-clicks-chg-dir": "down",
+        "fb-visits": "894", "fb-visits-chg": "40.8%", "fb-visits-chg-dir": "down",
+        "fb-follows": "12", "fb-follows-chg": "70.7%", "fb-follows-chg-dir": "down",
+        "ig-period": "July 1–31, 2026",
+        "ig-views": "13.1K", "ig-views-chg": "62.9%", "ig-views-chg-dir": "down",
+        "ig-reach": "926", "ig-reach-chg": "0.3%", "ig-reach-chg-dir": "down",
+        "ig-interactions": "257", "ig-int-chg": "14.6%", "ig-int-chg-dir": "down",
+        "ig-clicks": "0", "ig-clicks-chg": "0%", "ig-clicks-chg-dir": "neutral",
+        "ig-visits": "129", "ig-visits-chg": "36.5%", "ig-visits-chg-dir": "down",
+        "ig-follows": "17", "ig-follows-chg": "0%", "ig-follows-chg-dir": "neutral",
+        "ads-spend": "$1,380.18", "ads-spend-note": "Across 3 campaigns",
+        "ads-leads": "147", "ads-leads-note": "EasyPort + FRED + Trade in AED",
+        "ads-cpl": "$9.39", "ads-cpl-note": "Lead campaigns only",
+        "ads-reach": "27.4K", "ads-reach-note": "Sum across campaigns",
+        "easyport-name": "Cardiac Defibrillators — EasyPort", "easyport-badge": "Lowest CPL",
+        "easyport-result": "61", "easyport-reach": "8,514", "easyport-freq": "2.16", "easyport-cost": "$5.23",
+        "easyport-budget": "$20/day", "easyport-spent": "$318.78",
+        "fred-name": "FRED PA-1 Bundle — Leads Campaign", "fred-badge": "Active",
+        "fred-result": "75", "fred-reach": "13,821", "fred-freq": "2.18", "fred-cost": "$10.23",
+        "fred-budget": "$25/day", "fred-spent": "$767.53",
+        "tradein-name": "Trade in AED Offer — Victoria", "tradein-badge": "New",
+        "tradein-result": "11", "tradein-reach": "5,076", "tradein-freq": "2.32", "tradein-cost": "$26.72",
+        "tradein-budget": "$20/day", "tradein-spent": "$293.87",
+        "aud-women": "55.2%", "aud-men": "44.8%"
+      },
+      "campaigns": [
+        { "id": "easyport", "type": "leads", "headerClass": "c-black", "highlight": true },
+        { "id": "fred", "type": "leads", "headerClass": "c-red", "highlight": false },
+        { "id": "tradein", "type": "leads", "headerClass": "c-maroon", "highlight": false }
+      ],
+      "notes": "[Campaign Volume] July ran with 3 active Meta Ads campaigns, down from 4 in June — South Australian Legislation and the EOFY 2026 campaign both wrapped up at the end of the financial year. With fewer paid campaigns in market, overall views, impressions and clicks were lower across Facebook and Instagram this month compared to June's EOFY-driven peak."
     }
   },
-  "updatedAt": "2026-07-17T00:00:00.000Z"
+  "updatedAt": "2026-08-10T00:00:00.000Z"
 }

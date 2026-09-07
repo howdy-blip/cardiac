@@ -787,6 +787,20 @@
       <div id="campaignsContainer"></div>
     </div>
 
+    <!-- ── Daily New Leads ── -->
+    <div class="section" id="leadsChartSection" style="display:none;">
+      <div class="section-label">Daily New Leads</div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Meta Ads — Daily New Leads</div>
+          <div class="card-sub" id="leads-chart-caption">—</div>
+        </div>
+        <div class="card-body" style="padding:14px;">
+          <img id="leads-chart-img" src="" alt="Daily new leads chart" style="width:100%;height:auto;display:block;border-radius:8px;">
+        </div>
+      </div>
+    </div>
+
     <!-- ── Audience ── -->
     <div class="section">
       <div class="section-label">Audience</div>
@@ -1138,6 +1152,22 @@
       document.getElementById('campaignsContainer').innerHTML = month.campaigns.map(c => campaignHTML(c, month.fields)).join('');
     }
 
+    function renderLeadsChart(month) {
+      const sec = document.getElementById('leadsChartSection');
+      const img = document.getElementById('leads-chart-img');
+      const cap = document.getElementById('leads-chart-caption');
+      const src = month.fields['leads-chart'];
+      if (src) {
+        sec.style.display = '';
+        img.src = src;
+        img.alt = 'Daily new leads — ' + (month.fields['leads-chart-caption'] || '');
+        cap.textContent = month.fields['leads-chart-caption'] || '';
+      } else {
+        sec.style.display = 'none';
+        img.removeAttribute('src');
+      }
+    }
+
     function buildMomColumns() {
       const cols = [...DATA.order];
       let [y, m] = cols[cols.length - 1].split('-').map(Number);
@@ -1205,6 +1235,7 @@
       if (!month) return;
       renderKPIs(month);
       renderCampaigns(month);
+      renderLeadsChart(month);
       renderAllMom();
       renderNotesForMonth(month, monthKey);
     }

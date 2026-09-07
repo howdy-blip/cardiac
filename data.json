@@ -1,5 +1,5 @@
 {
-  "order": ["2026-05", "2026-06", "2026-07"],
+  "order": ["2026-05", "2026-06", "2026-07", "2026-08"],
   "months": {
     "2026-05": {
       "fields": {
@@ -124,7 +124,49 @@
         { "id": "tradein", "type": "leads", "headerClass": "c-maroon", "highlight": false }
       ],
       "notes": "[Campaign Volume] July ran with 3 active Meta Ads campaigns, down from 4 in June — South Australian Legislation and the EOFY 2026 campaign both wrapped up at the end of the financial year. With fewer paid campaigns in market, overall views, impressions and clicks were lower across Facebook and Instagram this month compared to June's EOFY-driven peak."
+    },
+    "2026-08": {
+      "fields": {
+        "sb-period": "August 1–31, 2026", "sb-camps": "3 Meta Ads campaigns",
+        "sb-spend": "$1,718.13", "sb-leads": "142 leads", "sb-updated": "7 September 2026",
+        "fb-period": "August 1–31, 2026",
+        "fb-views": "70.3K", "fb-views-chg": "27.5%", "fb-views-chg-dir": "up",
+        "fb-viewers": "26.3K", "fb-viewers-chg": "33.9%", "fb-viewers-chg-dir": "up",
+        "fb-interactions": "99", "fb-int-chg": "19.3%", "fb-int-chg-dir": "up",
+        "fb-clicks": "1K", "fb-clicks-chg": "4.4%", "fb-clicks-chg-dir": "down",
+        "fb-visits": "228", "fb-visits-chg": "9.2%", "fb-visits-chg-dir": "down",
+        "fb-follows": "2", "fb-follows-chg": "60%", "fb-follows-chg-dir": "down",
+        "ig-period": "August 1–31, 2026",
+        "ig-views": "5.2K", "ig-views-chg": "21.4%", "ig-views-chg-dir": "down",
+        "ig-reach": "2.7K", "ig-reach-chg": "16.2%", "ig-reach-chg-dir": "down",
+        "ig-interactions": "22", "ig-int-chg": "24.1%", "ig-int-chg-dir": "down",
+        "ig-clicks": "77", "ig-clicks-chg": "26%", "ig-clicks-chg-dir": "down",
+        "ig-visits": "9", "ig-visits-chg": "55%", "ig-visits-chg-dir": "down",
+        "ig-follows": "6", "ig-follows-chg": "33.3%", "ig-follows-chg-dir": "down",
+        "ads-spend": "$1,718.13", "ads-spend-note": "Across 3 campaigns",
+        "ads-leads": "142", "ads-leads-note": "EasyPort + FRED + Trade in AED",
+        "ads-cpl": "$12.10", "ads-cpl-note": "Lead campaigns only",
+        "ads-reach": "33.9K", "ads-reach-note": "Sum across campaigns",
+        "easyport-name": "Cardiac Defibrillators — EasyPort", "easyport-badge": "Lowest CPL",
+        "easyport-result": "58", "easyport-reach": "7,171", "easyport-freq": "2.27", "easyport-cost": "$5.49",
+        "easyport-budget": "$25/day", "easyport-spent": "$318.45",
+        "fred-name": "FRED PA-1 Bundle — Leads Campaign", "fred-badge": "Active",
+        "fred-result": "70", "fred-reach": "18,900", "fred-freq": "1.95", "fred-cost": "$11.10",
+        "fred-budget": "$25/day", "fred-spent": "$777.01",
+        "tradein-name": "Trade in AED Offer — Victoria", "tradein-badge": "Active",
+        "tradein-result": "14", "tradein-reach": "7,780", "tradein-freq": "2.72", "tradein-cost": "$44.48",
+        "tradein-budget": "$20/day", "tradein-spent": "$622.67",
+        "aud-women": "55%", "aud-men": "45%",
+        "leads-chart": "assets/daily-leads-2026-08.png",
+        "leads-chart-caption": "August 1–31, 2026"
+      },
+      "campaigns": [
+        { "id": "easyport", "type": "leads", "headerClass": "c-black", "highlight": true },
+        { "id": "fred", "type": "leads", "headerClass": "c-red", "highlight": false },
+        { "id": "tradein", "type": "leads", "headerClass": "c-maroon", "highlight": false }
+      ],
+      "notes": "[Highlight] Facebook had its strongest engagement month yet - views up 27.5% to 70.3K and viewer reach up 33.9%, with content interactions up 19.3%. The reach gain is translating into real engagement, not just passive impressions.\n\n[Watch] Blended CPL rose to $12.10 (from $9.39 in July), driven almost entirely by the Trade in AED Offer - Victoria campaign, where cost per lead jumped to $44.48. EasyPort remains the most efficient lead source at $5.49 CPL, and FRED PA-1 held fairly steady at $11.10. Worth reviewing Trade in AED targeting and creative, or pausing it, if the trend continues into September.\n\n[Instagram] A quieter month across the board - reach, interactions, clicks and visits all down double digits. Fresh creative ahead of Shocktober would help reset momentum here.\n\n[Follows] Facebook follows dropped sharply (down 60% to 2) - small numbers so easy to over-read, but worth a light follow call-to-action in September content.\n\n[September - FRED PA-1] Building interest in the FRED PA-1 ahead of Shocktober in October. Three angles to work into content and ads:<br><br>1. <strong>The defibrillator you buy once</strong> - lead with the 10-year warranty (one of the longest in Australia) as reassurance and value for workplaces and clubs weighing up cost, rather than a spec-sheet feature.<br><br>2. <strong>Not advertised as portable. But it lives in the ute anyway.</strong> - real-world carry use cases (tradies, sporting clubs, family road trips) leaning into the glovebox and car angle without ever calling it \"compact.\"<br><br>3. <strong>A soft bridge into Shocktober</strong> - a short educational piece on why a well-maintained AED matters, tied back to the warranty story, rather than a hard sell straight away."
     }
   },
-  "updatedAt": "2026-08-10T00:00:00.000Z"
+  "updatedAt": "2026-09-07T00:00:00.000Z"
 }

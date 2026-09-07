@@ -133,7 +133,7 @@
         "fb-views": "70.3K", "fb-views-chg": "27.5%", "fb-views-chg-dir": "up",
         "fb-viewers": "26.3K", "fb-viewers-chg": "33.9%", "fb-viewers-chg-dir": "up",
         "fb-interactions": "99", "fb-int-chg": "19.3%", "fb-int-chg-dir": "up",
-        "fb-clicks": "1K", "fb-clicks-chg": "4.4%", "fb-clicks-chg-dir": "down",
+        "fb-clicks": "1K", "fb-clicks-chg": "4.4%", "fb-clicks-chg-dir": "up",
         "fb-visits": "228", "fb-visits-chg": "9.2%", "fb-visits-chg-dir": "down",
         "fb-follows": "2", "fb-follows-chg": "60%", "fb-follows-chg-dir": "down",
         "ig-period": "August 1–31, 2026",
@@ -157,7 +157,7 @@
         "tradein-result": "14", "tradein-reach": "7,780", "tradein-freq": "2.72", "tradein-cost": "$44.48",
         "tradein-budget": "$20/day", "tradein-spent": "$622.67",
         "aud-women": "55%", "aud-men": "45%",
-        "leads-chart": "assets/daily-leads-2026-08.png",
+        "leads-chart": "daily-leads-2026-08.png",
         "leads-chart-caption": "August 1–31, 2026"
       },
       "campaigns": [

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distributor Hub · Cardiac Defibrillators</title>
+  <meta name="description" content="Product imagery and marketing assets for Cardiac Defibrillators distributors.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="https://www.cardiacdefibrillators.com.au/wp-content/uploads/2021/12/Cardiac-Defib-Transparent.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #da291c;
+      --red-dark: #b82217;
+      --red-light: #fdf2f1;
+      --black: #111111;
+      --gray-700: #444444;
+      --gray-500: #777777;
+      --gray-200: #d9d9d9;
+      --gray-100: #ebebeb;
+      --gray-50: #f6f6f6;
+      --white: #ffffff;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--gray-50);
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    /* Header */
+    .header {
+      background: var(--white);
+      border-bottom: 3px solid var(--red);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .logo { height: 46px; width: auto; display: block; }
+    .logo-fallback { display: none; font-weight: 800; font-size: 18px; letter-spacing: -0.01em; }
+    .logo-fallback span { color: var(--red); }
+    .header-pill {
+      background: var(--red-light);
+      color: var(--red);
+      border: 1px solid #f5cfcb;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--black);
+      color: var(--white);
+      padding: 56px 40px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -120px; top: -120px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(218,41,28,0.35) 0%, rgba(218,41,28,0) 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #ff6b5f; margin-bottom: 14px;
+    }
+    .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--red); animation: blink 1.5s infinite; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .hero h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+    .hero p { font-size: 16px; line-height: 1.6; color: #bdbdbd; max-width: 620px; }
+
+    /* Main */
+    main { flex: 1; width: 100%; max-width: 1080px; margin: -32px auto 0; padding: 0 40px 56px; position: relative; z-index: 2; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; color: #9a9a9a;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin: 0 0 14px;
+    }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      text-decoration: none;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.10); border-color: #f2c4bf; }
+    .card:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+    .preview {
+      aspect-ratio: 4 / 3;
+      background: #f1f1f1;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      position: relative;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .preview img { width: 100%; height: 100%; object-fit: contain; padding: 24px; background: #fff; transition: transform 0.3s ease; }
+    .card:hover .preview img { transform: scale(1.03); }
+    .preview.photo img { object-fit: cover; padding: 0; }
+
+    .preview-pending {
+      background: repeating-linear-gradient(135deg, #fafafa 0 14px, #f3f3f3 14px 28px);
+      flex-direction: column; gap: 12px; text-align: center; padding: 24px;
+    }
+    .pending-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--white); border: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pending-icon svg { width: 26px; height: 26px; stroke: var(--red); }
+    .pending-text { font-size: 14px; color: var(--gray-500); font-weight: 600; }
+
+    .tag {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--red); color: var(--white);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 5px 10px; border-radius: 5px;
+    }
+    .tag.muted { background: var(--black); }
+
+    .card-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .card-title { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: var(--black); }
+    .card-desc { font-size: 14px; line-height: 1.6; color: var(--gray-700); flex: 1; }
+    .card-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .chip { font-size: 11px; font-weight: 600; color: var(--gray-700); background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: 12px; padding: 4px 10px; }
+
+    .btn {
+      margin-top: 14px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--red); color: var(--white);
+      font-size: 14px; font-weight: 700;
+      padding: 12px 18px; border-radius: 8px;
+      transition: background 0.15s ease;
+      align-self: flex-start;
+    }
+    .card:hover .btn { background: var(--red-dark); }
+    .btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; }
+
+    /* Help */
+    .help {
+      margin-top: 32px;
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-left: 4px solid var(--red);
+      border-radius: 0 12px 12px 0;
+      padding: 18px 22px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .help h2 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+    .help p { font-size: 14px; color: var(--gray-700); line-height: 1.6; }
+    .help a.link { color: var(--red); font-weight: 700; text-decoration: none; font-size: 14px; white-space: nowrap; }
+    .help a.link:hover { text-decoration: underline; }
+
+    footer {
+      background: var(--black); color: #8a8a8a;
+      font-size: 12px; text-align: center; padding: 20px 40px;
+    }
+    footer a { color: #bdbdbd; text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 760px) {
+      .header { padding: 14px 16px; }
+      .logo { height: 36px; }
+      .hero { padding: 40px 16px 56px; }
+      main { padding: 0 16px 40px; }
+      .grid { grid-template-columns: 1fr; gap: 18px; }
+      footer { padding: 18px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="https://www.cardiacdefibrillators.com.au/" target="_blank" rel="noopener" aria-label="Cardiac Defibrillators website">
+      <img class="logo" src="https://www.cardiacdefibrillators.com.au/wp-content/uploads/2021/12/Cardiac-Defib-Transparent.png" alt="Cardiac Defibrillators"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+      <div class="logo-fallback">Cardiac <span>Defibrillators</span></div>
+    </a>
+    <div class="header-pill">Distributor Hub</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow"><span class="pulse"></span>Distributor resources</div>
+      <h1>Distributor Hub</h1>
+      <p>Official product imagery and marketing assets for Cardiac Defibrillators distributors. Select a product below to open its asset folder and download what you need.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="section-label">Product asset libraries</div>
+
+    <div class="grid">
+      <!-- FRED Easyport Plus -->
+      <a class="card" href="https://drive.google.com/drive/folders/1tlZX5CigCxn9y0X1vV4LRbdvvCypzaLF?usp=drive_link" target="_blank" rel="noopener">
+        <div class="preview photo">
+          <span class="tag">Available</span>
+          <img src="images/fred-easyport-plus.jpg" alt="FRED Easyport Plus defibrillator kit" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-title">FRED Easyport Plus</div>
+          <div class="card-desc">High-resolution product imagery for the FRED Easyport Plus, ready for websites, catalogues, social media and print.</div>
+          <div class="card-meta">
+            <span class="chip">Product images</span>
+            <span class="chip">300 dpi</span>
+            <span class="chip">Google Drive</span>
+          </div>
+          <span class="btn">Open asset folder
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- FRED PA-1 -->
+      <a class="card" href="https://drive.google.com/drive/folders/1c_5O8MBgtvUc_Gp2XOZFYfscw0GvFk_D?usp=sharing" target="_blank" rel="noopener">
+        <div class="preview photo">
+          <span class="tag">Available</span>
+          <img src="images/fred-pa-1.jpg" alt="Bystanders using a FRED defibrillator during CPR" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-title">FRED PA-1</div>
+          <div class="card-desc">Product and lifestyle imagery for the FRED PA-1 and battery pack, ready for websites, catalogues, social media and print.</div>
+          <div class="card-meta">
+            <span class="chip">Product images</span>
+            <span class="chip">Battery pack</span>
+            <span class="chip">Google Drive</span>
+          </div>
+          <span class="btn">Open asset folder
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+
+    <div class="help">
+      <div>
+        <h2>Need something else?</h2>
+        <p>Looking for a specific file, format or product that isn't listed here? Get in touch and we'll sort it out.</p>
+      </div>
+      <a class="link" href="https://www.cardiacdefibrillators.com.au/contact/" target="_blank" rel="noopener">Contact Cardiac Defibrillators &rarr;</a>
+    </div>
+  </main>
+
+  <footer>
+    &copy; <span id="yr">2026</span> Cardiac Defibrillators &nbsp;·&nbsp; <a href="https://www.cardiacdefibrillators.com.au/" target="_blank" rel="noopener">cardiacdefibrillators.com.au</a>
+  </footer>
+
+  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
